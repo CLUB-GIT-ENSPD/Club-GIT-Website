@@ -3,75 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/tailwind.min.css"></link>
+    <link rel="stylesheet" href="../css/tailwind.min.css"></link>
+    <link rel="stylesheet" href="../css/style.css">
     <title>Projet</title>
-    <style>
-        *{
-            font-family:Verdana, Geneva, Tahoma, sans-serif;
-        }
-        #main-content{
-            margin: 0 10px;
-            gap: 30px;
-        }
-        
-        /* Animation d'apparition */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Animation des vagues */
-        .wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 150px;
-            background: url('https://www.shapedfonts.com/wp-content/uploads/2022/07/wave-haikei.svg') repeat-x;
-            background-size: cover;
-            animation: moveWave 5s linear infinite;
-        }
-
-        @keyframes moveWave {
-            0% { background-position-x: 0; }
-            100% { background-position-x: 1000px; }
-        }
-
-        .content {
-            animation: fadeIn 1.5s ease-out;
-        }
-
-        /* Navbar animation */
-        .nav-link {
-            position: relative;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: #ffffff;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        .logo{
-            width: 20%;
-            padding: 0;
-            margin: 10px;
-            background-color:gray ;
-        }
-        
-    </style>
 </head>
 <body class="h-screen bg-gray-900 text-white relative">
 
@@ -80,13 +14,13 @@
         <div class="max-w-7xl mx-auto ">
             <div class="flex justify-between items-center h-20 p-2">
                 <div class=" flex items-center"> <!-- class="flex-shrink-0 flex "--> 
-                    <img src="images/IMG-20241222-WA0011.jpg" alt=""  class="logo"> 
+                    <img src="../images/IMG-20241222-WA0011.jpg" alt=""  class="logo"> 
                     <span class="text-xl font-bold">Club GIT</span>
                 </div>
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="nav-link text-white hover:text-gray-300 transition duration-300">Accueil</a>
+                    <a href="../index.html" class="nav-link text-white hover:text-gray-300 transition duration-300">Accueil</a>
                     <a href="#about" class="nav-link text-white hover:text-gray-300 transition duration-300">À Propos</a>
                     <a href="#main-content" class="nav-link text-white hover:text-gray-300 transition duration-300">Projets</a>
                     <a href="#footer" class="nav-link text-white hover:text-gray-300 transition duration-300">Contact</a>
@@ -128,7 +62,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <!-- Image Section -->
                 <div class="rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition duration-300">
-                    <img src="images/image_d_ensemble.jpg"  alt="Notre équipe" class="w-full h-full object-cover">
+                    <img src="../images/image_d_ensemble.jpg"  alt="Notre équipe" class="w-full h-full object-cover">
                 </div>
                 
                 <!-- Text Content -->
@@ -184,7 +118,7 @@
         <div class="max-w-6xl mx-auto px-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 content">
                 <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <img src="images/Rays-of-Light-on-the-Summit.jpg" alt="" class="w-full h-48 object-cover">
+                    <img src="../images/Rays-of-Light-on-the-Summit.jpg" alt="" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2">Nom du Projet</h3>
                         <p class="text-gray-300 mb-4">Description détaillée du projet et de ses fonctionnalités principales.</p>
@@ -193,7 +127,7 @@
                 </div>
 
                 <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <img src="images/photo1.jpg" alt="" class="w-full h-48 object-cover">
+                    <img src="../images/photo1.jpg" alt="" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2">Nom du Projet</h3>
                         <p class="text-gray-300 mb-4">Description détaillée du projet et de ses fonctionnalités principales.</p>
@@ -202,7 +136,7 @@
                 </div>
 
                 <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <img src="images/photo2.jpg" alt="" class="w-full h-48 object-cover">
+                    <img src="../images/photo2.jpg" alt="" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2">Nom du Projet</h3>
                         <p class="text-gray-300 mb-4">Description détaillée du projet et de ses fonctionnalités principales.</p>
@@ -211,7 +145,7 @@
                 </div>
 
                 <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <img src="images/photo3.jpg" alt="" class="w-full h-48 object-cover">
+                    <img src="../images/photo3.jpg" alt="" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2">Nom du Projet</h3>
                         <p class="text-gray-300 mb-4">Description détaillée du projet et de ses fonctionnalités principales.</p>
@@ -220,7 +154,7 @@
                 </div>
 
                 <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <img src="images/photo4.jpg" alt="" class="w-full h-48 object-cover">
+                    <img src="../images/photo4.jpg" alt="" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2">Nom du Projet</h3>
                         <p class="text-gray-300 mb-4">Description détaillée du projet et de ses fonctionnalités principales.</p>
@@ -229,7 +163,7 @@
                 </div>
 
                 <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <img src="images/Rays-of-Light-on-the-Summit.jpg" alt="" class="w-full h-48 object-cover">
+                    <img src="../images/Rays-of-Light-on-the-Summit.jpg" alt="" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2">Nom du Projet</h3>
                         <p class="text-gray-300 mb-4">Description détaillée du projet et de ses fonctionnalités principales.</p>
