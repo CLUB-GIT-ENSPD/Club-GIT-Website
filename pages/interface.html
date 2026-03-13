@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/tailwind.min.css"></link>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="images/logo_git.jpg" type="image/jpg">
+    <link rel="icon" href="../images/logo_git.jpg" type="image/jpg">
     <title>Club GIT - ENSPD</title>
 </head>
-<body class="pt-20 h-screen bg-gray-900 text-white relative">
+<body class="min-h-screen bg-gray-900 text-white relative">
 
     <!-- Navigation Bar -->
-    <nav class="bg-gray-800 w-full fixed top-0 z-50 shadow-lg ">
+    <nav class="bg-gray-800 w-full sticky top-0 z-50 shadow-lg ">
         <div class="max-w-7xl mx-auto ">
             <div class="flex justify-between items-center h-20 p-2">
                 <div class=" flex items-center"> <!-- class="flex-shrink-0 flex "--> 
@@ -25,7 +25,7 @@
                     <!-- il y auras un espace pour les filières et pour le bureau avant de passer sur la section des activités -->
                     <a href="interface.html" class="nav-link text-white hover:text-gray-300 transition duration-300">Activités</a>
                     <a href="#main-content" class="nav-link text-white hover:text-gray-300 transition duration-300">Services</a>
-                    <a href="interface.html" class="nav-link text-white hover:text-gray-300 transition duration-300">Galerie</a>
+                    <a href="galerie.html" class="nav-link text-white hover:text-gray-300 transition duration-300">Galerie</a>
                     <a href="#footer" class="nav-link text-white hover:text-gray-300 transition duration-300">Contact</a>
                     <!-- <a href="#" class="nav-link text-white hover:text-gray-300 transition duration-300">Contact</a> -->
                 </div>
@@ -45,7 +45,7 @@
                 <div class="px-2 pt-2 pb-3 space-y-1">
                     <a href="#about" class="block px-3 py-2 rounded-md hover:bg-gray-700 transition duration-300">À Propos</a>
                     <a href="#main-content" class="block px-3 py-2 rounded-md hover:bg-gray-700 transition duration-300">Services</a>
-                    <a href="#gallery" class="block px-3 py-2 rounded-md hover:bg-gray-700 transition duration-300">Galerie</a>
+                    <a href="galerie.html" class="block px-3 py-2 rounded-md hover:bg-gray-700 transition duration-300">Galerie</a>
                     <a href="#footer" class="block px-3 py-2 rounded-md hover:bg-gray-700 transition duration-300">Contact</a>
                 </div>
             </div>
@@ -120,26 +120,26 @@
             
             <!-- use a three‑column grid for cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-blue-500 rounded-lg p-6 flex flex-col items-center text-center">
+                <div class="bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center">
                     <img src="../images/radio-tower.svg" alt="" class="w-32 h-32 object-cover mb-4 color-white">
                     <h6 class="font-semibold">Génie Réseau & Télécommunication</h6>
-                    <p class="text-gray-200 mt-2">Description courte de la filière.</p>
+                    <p class="text-gray-200 mt-2">Cette filière se concentre sur la conception, le déploiement et la maintenance des infrastructures de communication. Les professionnels y apprennent à faire circuler l'information (voix, données, images) à travers différents supports (fibre optique, satellites, Wi-Fi). Elle couvre aussi bien la partie matérielle (routeurs, commutateurs, antennes) que logicielle (protocoles de communication, administration système).</p>
                 </div>
-                <div class="bg-blue-500 rounded-lg p-6 flex flex-col items-center text-center">
+                <div class="bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center">
                     <img src="../images/screen-shield (1).svg" alt="" class="w-32 h-32 object-cover mb-4 color-white">
                     <h6 class="font-semibold">Génie Cybersécurité & Cyberdéfense</h6>
-                    <p class="text-gray-200 mt-2">Description courte de la filière.</p>
+                    <p class="text-gray-200 mt-2">Cette spécialité vise à protéger les systèmes informatiques et les réseaux contre les attaques, les intrusions et les malveillances. Elle forme des experts capables d'anticiper les risques, de sécuriser les infrastructures (pare-feu, chiffrement) et d'intervenir en cas d'incident. La "cyberdéfense" ajoute une dimension plus offensive (tests d'intrusion) et stratégique, souvent liée à la protection d'entités critiques ou étatiques.</p>
                 </div>
-                <div class="bg-blue-500 rounded-lg p-6 flex flex-col items-center text-center">
-                    <img src="../images/software-development.svg" alt="" class="w-32 h-32 object-cover mb-4 fill-white">
+                <div class="bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center">
+                    <img src="../images/software-development.svg" alt="" class="w-32 h-32 object-cover mb-4 color-white">
                     <h6 class="font-semibold">Génie Logiciel</h6>
-                    <p class="text-gray-200 mt-2">Description courte de la filière.</p>
+                    <p class="text-gray-200 mt-2">Cette filière est centrée sur la conception, le développement, le test et la maintenance d'applications et de programmes informatiques. Elle couvre l'ensemble du cycle de vie d'un logiciel, depuis l'analyse des besoins des utilisateurs jusqu'à la livraison du produit fini, en passant par le choix des architectures, des langages de programmation et des méthodes de gestion de projet (comme les méthodes Agiles).</p>
                 </div>
             </div>
         </div>
     </div>
 
- <div id="filieres" class="py-20 bg-gray-900 ">
+ <div id="bureau" class="py-20 bg-gray-900 ">
         <div class="max-w-6xl mx-auto px-4 mt-10">
             <h2 class="text-4xl font-bold text-center mb-12 content">Le Bureau</h2>
 
@@ -234,7 +234,7 @@
 
                 <!-- Card for service -->
                 <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <img src="../images/Rays-of-Light-on-the-Summit.jpg" alt="" class="w-full h-48 object-cover">
+                    <img src="../images/graduation.jpg" alt="" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2">Support Académique</h3>
                         <p class="text-gray-300 mb-4">Nous offrons un support académique pour aider les étudiants à réussir leurs soutenances à travers une bonne communication visuelle et un accompagnement de qualité.</p>
@@ -243,7 +243,7 @@
                 </div>
 
                 <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <img src="../images/photo1.jpg" alt="" class="w-full h-48 object-cover">
+                    <img src="../images/maintenance.jpg" alt="" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2">Maintenance</h3>
                         <p class="text-gray-300 mb-4">Nous offrons un service de maintenance pour assurer le bon fonctionnement de vos systèmes et applications.</p>
@@ -314,5 +314,10 @@
     </footer>
     
     
+    <script>
+        document.querySelector('.mobile-menu-button').addEventListener('click', function() {
+            document.querySelector('.mobile-menu').classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>
