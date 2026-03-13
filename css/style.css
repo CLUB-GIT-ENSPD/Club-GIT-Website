@@ -3,11 +3,10 @@
 }
 
 .logo {
-    width: 20%;
     padding: 0;
     margin: 10px;
-    background-color: gray;
 }
+
 
 body {
     background-image: url('images/Rays-of-Light-on-the-Summit.jpg');
@@ -77,4 +76,8 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.color-white {
+    filter: brightness(0) invert(1);
 }

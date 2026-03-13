@@ -3,18 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenue au Club GIT</title>
-    <link rel="stylesheet" href="./css/tailwind.min.css"></link>
-    <link rel="stylesheet" href="./css/style.css">
+    <title>Club GIT - ENSPD</title>
+    <link rel="icon" href="images/logo_git.jpg" type="image/jpg">
+    <link rel="stylesheet" href="css/tailwind.min.css"></link>
+    <style>
+        /* Animation d'apparition */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animation des vagues */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: url('https://www.shapedfonts.com/wp-content/uploads/2022/07/wave-haikei.svg') repeat-x;
+            background-size: cover;
+            animation: moveWave 5s linear infinite;
+        }
+
+        @keyframes moveWave {
+            0% { background-position-x: 0; }
+            100% { background-position-x: 1000px; }
+        }
+
+        .content {
+            animation: fadeIn 1.5s ease-out;
+        }
+        body{
+            background-image: url('images/Rays-of-Light-on-the-Summit.jpg');
+            background-size: cover;
+            backdrop-filter: blur(15px);
+        }
+    </style>
 </head>
-<body class="flex items-center justify-center h-screen bg-gray-900 text-white relative overflow-hidden">
+<body class="flex items-center justify-center h-screen bg-black text-white relative overflow-hidden">
     
     <!-- Contenu principal -->
     <div class="text-center content">
-        <h1 class="text-5xl font-bold">Bienvenue au Club GIT</h1>
-        <p class="mt-4 text-lg">Codons l'avenir Connectons pour l'excellence</p>
+        <h1 class="text-5xl font-bold flex items-center">Bienvenue au Club  <img src="images/logo-version-2.png" alt="Logo GIT" id="logo" class="w-18 h-12 inline ml-2"> -ENSPD</h1>
+        <p class="mt-4 text-lg">Club Génie Informatique & Télécommunications</p>
         <div class="mt-6">
-            <a href="./pages/interface.html" class="px-6 py-3 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600 transition transform hover:scale-110">Explorer 🚀</a>
+            <a href="pages/interface.html" class="px-6 py-3 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600 transition transform hover:scale-110">Découvrir</a>
         </div>
     </div>
 
