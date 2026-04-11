@@ -83,7 +83,7 @@
             <div class="text-center md:text-left">
                 <h4 class="text-xl font-semibold mb-4">Contact</h4>
                 <p class="mb-2">Email: enspd@google.com</p>
-                <p class="mb-2">Tél: +237 696969696</p>
+                <!-- <p class="mb-2">Tél: +237 696969696</p> -->
                 <p>Logbessou PK17</p>
             </div>
     
@@ -126,6 +126,21 @@
             <p>&copy; 2025 Club GIT. Tous droits réservés.</p>
         </div>
     </footer>
-    
+
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 z-50 p-3 rounded-full bg-orange-500 text-white shadow-lg hover:bg-orange-600 transition duration-300 focus:outline-none" aria-label="Retour en haut">↑</button>
+
+    <script>
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 0) {
+                scrollToTopBtn.classList.remove('hidden');
+            } else {
+                scrollToTopBtn.classList.add('hidden');
+            }
+        });
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>
