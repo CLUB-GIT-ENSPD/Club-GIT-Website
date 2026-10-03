@@ -1,0 +1,7 @@
+{
+  "name": "Club GIT - ENSPD",
+  "description": "Portail officiel du Club Génie Informatique & Télécommunications de l'École Nationale Supérieure Polytechnique de Douala (ENSPD) : projets, filières, bureau exécutif, galerie et services.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

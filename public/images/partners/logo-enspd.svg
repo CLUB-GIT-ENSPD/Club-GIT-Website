@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" fill="none">
+  <!-- Golden Laurels on the left -->
+  <g fill="#D4AF37" stroke="#B89428" stroke-width="0.5">
+    <!-- Paired wheat/laurel leaves stacked vertically -->
+    <path d="M12 40 C6 34 2 42 12 46 C22 42 18 34 12 40 Z" />
+    <path d="M12 58 C5 52 1 60 12 64 C23 60 19 52 12 58 Z" />
+    <path d="M12 76 C5 70 1 78 12 82 C23 78 19 70 12 76 Z" />
+    <path d="M12 94 C5 88 1 96 12 100 C23 96 19 88 12 94 Z" />
+    <path d="M12 112 C5 106 1 114 12 118 C23 114 19 106 12 112 Z" />
+    <path d="M12 130 C5 124 1 132 12 136 C23 132 19 124 12 130 Z" />
+    <path d="M12 148 C5 142 1 150 12 154 C23 150 19 142 12 148 Z" />
+    <path d="M12 166 C5 160 1 168 12 172 C23 168 19 160 12 166 Z" />
+    <path d="M12 184 C5 178 1 186 12 190 C23 186 19 178 12 184 Z" />
+    <!-- Central golden stalk -->
+    <line x1="12" y1="36" x2="12" y2="198" stroke="#D4AF37" stroke-width="2" />
+  </g>
+
+  <!-- Sigma symbol on top left -->
+  <path d="M38 10 L84 10 L58 35 L84 60 L38 60" fill="none" stroke="#004A87" stroke-width="6.5" stroke-linejoin="miter" stroke-linecap="square" />
+
+  <!-- Outer D shape in Deep Blue -->
+  <path d="M88 18 H120 C162 18 194 50 194 96 C194 142 162 174 120 174 H88 Z" fill="#004A87" />
+
+  <!-- Inner cutout forming the P -->
+  <path d="M36 66 H120 C146 66 168 82 168 102 C168 122 146 138 120 138 H88 V196 H36 Z" fill="#004A87" />
+
+  <!-- White inner negative space of P -->
+  <path d="M68 94 H116 C126 94 136 100 136 106 C136 112 126 118 116 118 H68 Z" fill="#FFFFFF" />
+  <!-- White vertical cutout creating the P stem -->
+  <rect x="68" y="94" width="20" height="92" fill="#FFFFFF" />
+
+  <!-- Cogwheel Gear at bottom -->
+  <g fill="#004A87">
+    <path d="M22 198 L32 190 L38 195 L34 206 L44 212 L49 202 L56 206 L53 218 L65 220 L68 209 L76 211 L76 222 L88 221 L87 210 L95 208 L99 219 L110 213 L106 202 L113 197 L120 205 L129 196 L123 188 C115 204 98 214 78 214 C55 214 36 201 22 198 Z" />
+  </g>
+</svg>

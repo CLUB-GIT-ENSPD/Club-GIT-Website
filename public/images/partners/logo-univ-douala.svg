@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 280" fill="none">
+  <!-- Outer Shield Border -->
+  <path d="M25 75 C25 25 70 15 110 15 C150 15 195 25 195 75 V175 C195 205 160 215 110 215 C60 215 25 205 25 175 Z" fill="#FFFFFF" stroke="#1A2B70" stroke-width="3" />
+
+  <!-- Blue Header Arc Area -->
+  <path d="M26 75 C26 27 70 17 110 17 C150 17 194 27 194 75 V95 H26 Z" fill="#FFFFFF" />
+
+  <!-- Shield Arc Text Path -->
+  <path id="univArcTop" d="M35 85 C45 35 80 28 110 28 C140 28 175 35 185 85" fill="none" />
+  <text font-family="'Roboto', 'Arial Black', sans-serif" font-weight="900" font-size="12" fill="#1A2B70" letter-spacing="1">
+    <textPath href="#univArcTop" startOffset="50%" text-anchor="middle">
+      UNIVERSITÉ DE DOUALA
+    </textPath>
+  </text>
+
+  <!-- Latin Motto -->
+  <path id="mottoArc" d="M42 98 C55 60 85 52 110 52 C135 52 165 60 178 98" fill="none" />
+  <text font-family="'Roboto', sans-serif" font-style="italic" font-weight="600" font-size="7.5" fill="#1A2B70">
+    <textPath href="#mottoArc" startOffset="50%" text-anchor="middle">
+      Ratio et Scientia Omnia Vincunt
+    </textPath>
+  </text>
+
+  <!-- Stars on sides -->
+  <polygon points="36,110 38,114 43,114 39,117 41,121 36,118 32,121 34,117 30,114 34,114" fill="#C29B38" />
+  <polygon points="184,110 186,114 191,114 187,117 189,121 184,118 180,121 182,117 178,114 182,114" fill="#C29B38" />
+
+  <!-- Inner Blue Field for Honeycomb and Bee -->
+  <path d="M40 95 H180 V165 C180 190 150 200 110 200 C70 200 40 190 40 165 Z" fill="#203E8A" />
+
+  <!-- Honeycomb Grid -->
+  <g fill="#D38827" stroke="#8E5411" stroke-width="1">
+    <!-- Row 1 -->
+    <polygon points="90,100 100,95 110,100 110,110 100,115 90,110" />
+    <polygon points="110,100 120,95 130,100 130,110 120,115 110,110" />
+    <polygon points="70,100 80,95 90,100 90,110 80,115 70,110" />
+    <polygon points="130,100 140,95 150,100 150,110 140,115 130,110" />
+    <!-- Row 2 -->
+    <polygon points="80,112 90,107 100,112 100,122 90,127 80,122" />
+    <polygon points="100,112 110,107 120,112 120,122 110,127 100,122" />
+    <polygon points="120,112 130,107 140,112 140,122 130,127 120,122" />
+    <polygon points="60,112 70,107 80,112 80,122 70,127 60,122" />
+    <polygon points="140,112 150,107 160,112 160,122 150,127 140,122" />
+  </g>
+
+  <!-- Central Honeybee of University of Douala -->
+  <!-- Wings -->
+  <path d="M106 142 C85 125 50 130 45 138 C42 145 60 158 90 152 C102 150 105 145 106 142 Z" fill="#E8EDF5" stroke="#1A2B70" stroke-width="1.2" opacity="0.95" />
+  <path d="M114 142 C135 125 170 130 175 138 C178 145 160 158 130 152 C118 150 115 145 114 142 Z" fill="#E8EDF5" stroke="#1A2B70" stroke-width="1.2" opacity="0.95" />
+  <!-- Wing veins -->
+  <path d="M55 136 C75 138 95 145 104 144" stroke="#6884B8" stroke-width="0.8" fill="none" />
+  <path d="M165 136 C145 138 125 145 116 144" stroke="#6884B8" stroke-width="0.8" fill="none" />
+
+  <!-- Bee Body -->
+  <!-- Head -->
+  <circle cx="110" cy="132" r="7" fill="#1C1E24" />
+  <!-- Antennae -->
+  <path d="M107 127 C104 121 98 121 95 124" stroke="#1C1E24" stroke-width="1.2" fill="none" />
+  <path d="M113 127 C116 121 122 121 125 124" stroke="#1C1E24" stroke-width="1.2" fill="none" />
+  <!-- Thorax -->
+  <ellipse cx="110" cy="144" rx="8" ry="7" fill="#1C1E24" />
+  <!-- Abdomen with yellow/black stripes -->
+  <path d="M103 151 C103 151 101 176 110 183 C119 176 117 151 117 151 Z" fill="#E5B21A" stroke="#1C1E24" stroke-width="1" />
+  <!-- Stripes -->
+  <path d="M103 156 Q110 158 117 156" stroke="#1C1E24" stroke-width="2.5" fill="none" />
+  <path d="M104 163 Q110 165 116 163" stroke="#1C1E24" stroke-width="2.5" fill="none" />
+  <path d="M106 170 Q110 172 114 170" stroke="#1C1E24" stroke-width="2" fill="none" />
+  <!-- Legs -->
+  <path d="M104 142 L95 148 L90 156" stroke="#1C1E24" stroke-width="1.2" fill="none" />
+  <path d="M116 142 L125 148 L130 156" stroke="#1C1E24" stroke-width="1.2" fill="none" />
+  <path d="M104 147 L94 154 L92 165" stroke="#1C1E24" stroke-width="1.2" fill="none" />
+  <path d="M116 147 L126 154 L128 165" stroke="#1C1E24" stroke-width="1.2" fill="none" />
+
+  <!-- Shield Bottom Curve Text -->
+  <path id="univArcBottom" d="M38 178 C55 204 85 212 110 212 C135 212 165 204 182 178" fill="none" />
+  <text font-family="'Roboto', sans-serif" font-weight="700" font-size="8.5" fill="#1A2B70" letter-spacing="0.5">
+    <textPath href="#univArcBottom" startOffset="50%" text-anchor="middle">
+      THE UNIVERSITY OF DOUALA
+    </textPath>
+  </text>
+
+  <!-- Bottom Brand Text -->
+  <text x="110" y="240" font-family="'Roboto', sans-serif" font-size="8.5" font-weight="700" fill="#C29B38" text-anchor="middle" letter-spacing="1">
+    UNIVERSITY OF DOUALA
+  </text>
+  <text x="110" y="260" font-family="'Roboto', serif" font-size="14.5" font-weight="900" fill="#1A2B70" text-anchor="middle" letter-spacing="0.5">
+    UNIVERSITÉ
+  </text>
+  <text x="110" y="276" font-family="'Roboto', serif" font-size="15" font-weight="900" fill="#1A2B70" text-anchor="middle" letter-spacing="1">
+    DE DOUALA
+  </text>
+</svg>

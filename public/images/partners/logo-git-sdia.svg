@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 380" fill="none">
+  <!-- Background transparent -->
+  
+  <!-- Digital Bits / Floating Square Pixels -->
+  <!-- Blue Pixels -->
+  <rect x="110" y="55" width="12" height="12" fill="#0E2954" />
+  <rect x="160" y="24" width="15" height="15" fill="#0E2954" />
+  <rect x="94" y="108" width="11" height="11" fill="#0E2954" />
+  <rect x="98" y="160" width="13" height="13" fill="#0E2954" />
+  <rect x="250" y="90" width="11" height="11" fill="#0E2954" />
+  <rect x="252" y="178" width="12" height="12" fill="#0E2954" />
+  <rect x="230" y="210" width="11" height="11" fill="#0E2954" />
+
+  <!-- Orange Pixels -->
+  <rect x="140" y="50" width="10" height="10" fill="#FF5E00" />
+  <rect x="222" y="55" width="9" height="9" fill="#FF5E00" />
+
+  <!-- Radio Broadcast Signal Waves (Orange) Top Right -->
+  <!-- Outer Arc -->
+  <path d="M225 18 C255 18 280 42 280 72" stroke="#FF5E00" stroke-width="8" stroke-linecap="round" fill="none" />
+  <!-- Middle Arc -->
+  <path d="M225 36 C245 36 262 52 262 72" stroke="#FF5E00" stroke-width="8" stroke-linecap="round" fill="none" />
+  <!-- Inner Arc -->
+  <path d="M225 54 C235 54 244 62 244 72" stroke="#FF5E00" stroke-width="8" stroke-linecap="round" fill="none" />
+
+  <!-- Orange Cogwheel inside the brain / mind -->
+  <g fill="#FF5E00">
+    <path d="M212 118 L217 114 L222 118 L227 117 L229 123 L235 125 L234 131 L239 135 L236 140 L239 146 L233 149 L233 155 L227 155 L224 161 L218 159 L213 163 L210 157 L204 158 L203 152 L197 150 L199 144 L195 139 L198 134 L196 128 L202 126 L204 120 L210 122 Z" />
+    <circle cx="216" cy="139" r="6" fill="#FFFFFF" />
+  </g>
+
+  <!-- Flowing Dynamic Hair Waves / Fiber Optics (Navy Blue) -->
+  <path d="M72 195 C115 190 148 140 185 80 C200 55 220 50 238 60 C215 72 195 90 180 120 C160 160 120 190 72 195 Z" fill="#0E2954" />
+  <path d="M125 155 C150 125 178 85 210 70 C225 62 238 68 245 74 C225 85 205 105 190 135 C170 170 145 185 125 155 Z" fill="#0E2954" />
+
+  <!-- Profile Silhouette of Face & Head (Deep Navy) -->
+  <path d="M110 272 C125 260 145 250 165 240 C175 235 185 220 185 205 C185 195 180 190 183 180 C186 172 192 170 192 162 C192 154 186 150 186 142 C186 130 196 118 212 115 C217 114 220 110 223 115 C226 120 228 126 230 132 C234 145 225 155 220 165 C215 175 210 185 195 198 C185 208 178 222 170 238 C158 258 135 268 110 272 Z" fill="#0E2954" />
+
+  <!-- Base line of graphic -->
+  <path d="M80 275 C120 270 160 255 185 230" stroke="#0E2954" stroke-width="4" stroke-linecap="round" fill="none" />
+
+  <!-- Lower Title Text: Computer Engineering and Telecommunication -->
+  <text x="170" y="318" font-family="'Roboto', 'Arial Black', sans-serif" font-weight="900" font-size="14.8" fill="#0E2954" text-anchor="middle" letter-spacing="0.2">
+    COMPUTER ENGINEERING
+  </text>
+  <text x="170" y="338" font-family="'Roboto', 'Arial Black', sans-serif" font-weight="900" font-size="14.8" fill="#0E2954" text-anchor="middle" letter-spacing="0.2">
+    AND TELECOMMUNICATION
+  </text>
+
+  <!-- Orange Separator Rule -->
+  <rect x="30" y="347" width="280" height="3" fill="#FF5E00" rx="1.5" />
+
+  <!-- Subtitle: National Higher Polytechnic School of Douala -->
+  <text x="170" y="365" font-family="'Roboto', sans-serif" font-weight="800" font-size="11.2" fill="#0E2954" text-anchor="middle" letter-spacing="0.3">
+    NATIONAL HIGHER POLYTECHNIC
+  </text>
+  <text x="170" y="378" font-family="'Roboto', sans-serif" font-weight="800" font-size="11.2" fill="#0E2954" text-anchor="middle" letter-spacing="0.3">
+    SCHOOL OF DOUALA
+  </text>
+</svg>
