@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CLUB_META } from '../data/clubData';
 import { ArrowLeft, CheckCircle2, HelpCircle, Mail, Award, Info } from 'lucide-react';
 
-interface JoinPageProps {
-  onBackToHome: () => void;
-}
-
-export const JoinPage: React.FC<JoinPageProps> = ({ onBackToHome }) => {
+export const JoinPage: React.FC = () => {
+  const navigate = useNavigate();
+  const goHome = () => navigate('/');
   const [formData, setFormData] = useState({
     fullName: '',
     matricule: '',
@@ -74,7 +73,7 @@ export const JoinPage: React.FC<JoinPageProps> = ({ onBackToHome }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
-              onClick={onBackToHome}
+              onClick={goHome}
               className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-[#261c72] hover:bg-slate-100 transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -98,7 +97,7 @@ export const JoinPage: React.FC<JoinPageProps> = ({ onBackToHome }) => {
 
           <div className="flex items-center gap-3">
             <button
-              onClick={onBackToHome}
+              onClick={goHome}
               className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-[#261c72] hover:bg-[#1b1353] transition-colors cursor-pointer shadow-xs"
             >
               Voir le Site Officiel
@@ -167,7 +166,7 @@ export const JoinPage: React.FC<JoinPageProps> = ({ onBackToHome }) => {
 
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
                 <button
-                  onClick={onBackToHome}
+                  onClick={goHome}
                   className="w-full sm:w-auto px-6 py-3 rounded-xl text-xs font-semibold text-white bg-[#261c72] hover:bg-[#1b1353] shadow-md shadow-[#261c72]/20 transition-all cursor-pointer"
                 >
                   Retourner sur la Page d'Accueil

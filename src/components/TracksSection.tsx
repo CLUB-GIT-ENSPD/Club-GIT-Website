@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { TRACKS_DATA } from '../data/clubData';
 import { Code, Network, ArrowRight, GraduationCap, Briefcase, ZoomIn } from 'lucide-react';
 
@@ -135,14 +136,14 @@ export const TracksSection: React.FC<TracksSectionProps> = ({
                     <span className="font-semibold text-slate-800">Diplôme d'Ingénieur</span>
                   </div>
 
-                  <a
-                    href="#projets"
+                  <Link
+                    to="/projets"
                     onClick={() => onSelectTrackForProjects && onSelectTrackForProjects(track.id)}
                     className="inline-flex items-center gap-1 text-xs font-semibold text-[#261c72] hover:text-[#ff7f00] transition-colors"
                   >
                     <span>Voir les projets {track.shortCode}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             );

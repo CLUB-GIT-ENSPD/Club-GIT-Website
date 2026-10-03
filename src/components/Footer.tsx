@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { CLUB_META } from '../data/clubData';
 import { Mail, MapPin, ArrowUp, Send, Check, MessageCircle, Instagram, Facebook } from 'lucide-react';
+import { useModal } from '../app/ModalContext';
 
-interface FooterProps {
-  onOpenJoinModal: () => void;
-  onOpenServiceModal: (serviceTitle?: string) => void;
-  onOpenPrivacyModal?: () => void;
-}
-
-export const Footer: React.FC<FooterProps> = ({
-  onOpenJoinModal,
-  onOpenServiceModal,
-  onOpenPrivacyModal
-}) => {
+export const Footer: React.FC = () => {
+  const { openJoinModal, openServiceModal, openPrivacyModal } = useModal();
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
 
@@ -75,28 +68,28 @@ export const Footer: React.FC<FooterProps> = ({
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="#about" className="hover:text-[#261c72] transition-colors">À Propos</a>
+                <Link to="/club" className="hover:text-[#261c72] transition-colors">À Propos</Link>
               </li>
               <li>
-                <a href="#departement" className="hover:text-[#261c72] transition-colors">Département GIT</a>
+                <Link to="/club" className="hover:text-[#261c72] transition-colors">Département GIT</Link>
               </li>
               <li>
-                <a href="#partenaires" className="hover:text-[#261c72] transition-colors">Partenaires</a>
+                <Link to="/club" className="hover:text-[#261c72] transition-colors">Partenaires</Link>
               </li>
               <li>
-                <a href="#filieres" className="hover:text-[#261c72] transition-colors">Filières Pédagogiques</a>
+                <Link to="/filieres" className="hover:text-[#261c72] transition-colors">Filières Pédagogiques</Link>
               </li>
               <li>
-                <a href="#projets" className="hover:text-[#261c72] transition-colors">Projets & Réalisations</a>
+                <Link to="/projets" className="hover:text-[#261c72] transition-colors">Projets & Réalisations</Link>
               </li>
               <li>
-                <a href="#bureau" className="hover:text-[#261c72] transition-colors">Bureau Exécutif</a>
+                <Link to="/bureau" className="hover:text-[#261c72] transition-colors">Bureau Exécutif</Link>
               </li>
               <li>
-                <a href="#services" className="hover:text-[#261c72] transition-colors">Services & Support</a>
+                <Link to="/services" className="hover:text-[#261c72] transition-colors">Services & Support</Link>
               </li>
               <li>
-                <a href="#galerie" className="hover:text-[#261c72] transition-colors">Galerie Photos</a>
+                <Link to="/galerie" className="hover:text-[#261c72] transition-colors">Galerie Photos</Link>
               </li>
             </ul>
           </div>
@@ -109,7 +102,7 @@ export const Footer: React.FC<FooterProps> = ({
             <ul className="space-y-2 text-xs">
               <li>
                 <button
-                  onClick={() => onOpenServiceModal('Clinique de Maintenance & Dépannage PC')}
+                  onClick={() => openServiceModal('Clinique de Maintenance & Dépannage PC')}
                   className="hover:text-[#ff7f00] text-left transition-colors cursor-pointer"
                 >
                   Clinique Maintenance PC
@@ -117,7 +110,7 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
-                  onClick={() => onOpenServiceModal('Accompagnement Académique & Soutenances')}
+                  onClick={() => openServiceModal('Accompagnement Académique & Soutenances')}
                   className="hover:text-[#261c72] text-left transition-colors cursor-pointer"
                 >
                   Coaching & Soutenances d'Ingénieur
@@ -125,7 +118,7 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
-                  onClick={() => onOpenServiceModal('Ateliers Pratiques & Bootcamps Accélérés')}
+                  onClick={() => openServiceModal('Ateliers Pratiques & Bootcamps Accélérés')}
                   className="hover:text-[#261c72] text-left transition-colors cursor-pointer"
                 >
                   Bootcamps du Samedi Matin
@@ -133,7 +126,7 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
-                  onClick={onOpenJoinModal}
+                  onClick={openJoinModal}
                   className="text-[#ff7f00] font-semibold hover:text-[#e67200] text-left transition-colors cursor-pointer"
                 >
                   Challenge d'Audition & Adhésion →
@@ -224,14 +217,12 @@ export const Footer: React.FC<FooterProps> = ({
           </p>
 
           <div className="flex items-center gap-4">
-            {onOpenPrivacyModal && (
-              <button
-                onClick={onOpenPrivacyModal}
-                className="hover:text-[#261c72] hover:underline cursor-pointer"
-              >
-                Politique de Confidentialité
-              </button>
-            )}
+            <button
+              onClick={openPrivacyModal}
+              className="hover:text-[#261c72] hover:underline cursor-pointer"
+            >
+              Politique de Confidentialité
+            </button>
 
             <button
               onClick={scrollToTop}

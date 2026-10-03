@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { CLUB_META } from '../data/clubData';
+import { Link, NavLink } from 'react-router-dom';
 import { Menu, X, Wrench, UserPlus } from 'lucide-react';
+import { useModal } from '../app/ModalContext';
 
-interface NavbarProps {
-  onOpenServiceModal: (defaultService?: string) => void;
-  onOpenJoinModal: () => void;
-  activeSection: string;
-}
+const navLinks = [
+  { to: '/', label: 'Accueil', end: true },
+  { to: '/club', label: 'Le Club', end: false },
+  { to: '/filieres', label: 'Filières', end: false },
+  { to: '/projets', label: 'Projets', end: false },
+  { to: '/bureau', label: 'Bureau', end: false },
+  { to: '/services', label: 'Services', end: false },
+  { to: '/galerie', label: 'Galerie', end: false },
+];
 
-export const Navbar: React.FC<NavbarProps> = ({
-  onOpenServiceModal,
-  onOpenJoinModal,
-  activeSection
-}) => {
+export const Navbar: React.FC = () => {
+  const { openServiceModal, openJoinModal } = useModal();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -23,17 +25,6 @@ export const Navbar: React.FC<NavbarProps> = ({
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const navLinks = [
-    { href: '#about', label: 'À Propos', id: 'about' },
-    { href: '#departement', label: 'Département', id: 'departement' },
-    { href: '#partenaires', label: 'Partenaires', id: 'partenaires' },
-    { href: '#filieres', label: 'Filières', id: 'filieres' },
-    { href: '#projets', label: 'Projets', id: 'projets' },
-    { href: '#bureau', label: 'Bureau', id: 'bureau' },
-    { href: '#services', label: 'Services', id: 'services' },
-    { href: '#galerie', label: 'Galerie', id: 'galerie' },
-  ];
 
   return (
     <header
@@ -46,8 +37,8 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-18">
           {/* Zone 1: Brand with authentic club logo */}
-          <a
-            href="#"
+          <Link
+            to="/"
             className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#261c72] rounded-lg"
             aria-label="Accueil Club GIT ENSPD"
           >
@@ -64,33 +55,37 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="font-display font-bold text-lg sm:text-xl tracking-tight text-slate-900 group-hover:text-[#261c72] transition-colors">
               <span className="text-[#261c72]">Club GIT</span> <span className="text-[#ff7f00]">·</span> <span className="text-[#261c72]">ENSPD</span>
             </span>
-          </a>
+          </Link>
 
           {/* Zone 2: Navigation Links */}
-          <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.id;
-              return (
-                <a
-                  key={link.id}
-                  href={link.href}
-                  className={`relative py-1 whitespace-nowrap transition-colors hover:text-[#261c72] ${
+          <nav className="hidden md:flex items-center gap-5 lg:gap-7 text-sm font-medium text-slate-600">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.end}
+                className={({ isActive }) =>
+                  `relative py-1 whitespace-nowrap transition-colors hover:text-[#261c72] ${
                     isActive ? 'text-[#261c72] font-semibold' : 'text-slate-600'
-                  }`}
-                >
-                  {link.label}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#ff7f00] rounded-full" />
-                  )}
-                </a>
-              );
-            })}
+                  }`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    {link.label}
+                    {isActive && (
+                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#ff7f00] rounded-full" />
+                    )}
+                  </>
+                )}
+              </NavLink>
+            ))}
           </nav>
 
           {/* Zone 3: Primary Actions (#261c72 & #ff7f00) */}
           <div className="hidden sm:flex items-center gap-3">
             <button
-              onClick={() => onOpenServiceModal()}
+              onClick={() => openServiceModal()}
               className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-[#261c72] bg-white border border-[#261c72]/30 rounded-xl hover:bg-[#261c72]/5 hover:border-[#261c72] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#261c72] whitespace-nowrap cursor-pointer shadow-xs"
             >
               <Wrench className="w-3.5 h-3.5 text-[#261c72]" />
@@ -98,7 +93,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             <button
-              onClick={onOpenJoinModal}
+              onClick={openJoinModal}
               className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-[#ff7f00] rounded-xl hover:bg-[#e67200] shadow-sm shadow-[#ff7f00]/30 transition-all active:scale-98 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff7f00] whitespace-nowrap cursor-pointer"
             >
               <UserPlus className="w-3.5 h-3.5" />
@@ -109,7 +104,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Mobile Menu Trigger button */}
           <div className="flex md:hidden items-center gap-2">
             <button
-              onClick={() => onOpenServiceModal()}
+              onClick={() => openServiceModal()}
               className="sm:hidden min-w-[40px] min-h-[40px] flex items-center justify-center p-2 rounded-xl bg-orange-50 text-[#ff7f00] border border-orange-200 text-xs font-medium"
               aria-label="Demande de service"
             >
@@ -133,18 +128,21 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="md:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-3 shadow-lg animate-in fade-in slide-in-from-top-2 duration-150">
           <div className="flex flex-col space-y-1">
             {navLinks.map((link) => (
-              <a
-                key={link.id}
-                href={link.href}
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.end}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                  activeSection === link.id
-                    ? 'bg-blue-50 text-[#261c72] font-semibold'
-                    : 'text-slate-700 hover:bg-slate-100 hover:text-[#261c72]'
-                }`}
+                className={({ isActive }) =>
+                  `px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'bg-blue-50 text-[#261c72] font-semibold'
+                      : 'text-slate-700 hover:bg-slate-100 hover:text-[#261c72]'
+                  }`
+                }
               >
                 {link.label}
-              </a>
+              </NavLink>
             ))}
           </div>
 
@@ -152,7 +150,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
-                onOpenServiceModal();
+                openServiceModal();
               }}
               className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-[#261c72] bg-slate-50 border border-slate-300 rounded-xl hover:bg-slate-100"
             >
@@ -163,7 +161,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
-                onOpenJoinModal();
+                openJoinModal();
               }}
               className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-[#ff7f00] rounded-xl hover:bg-[#e67200] shadow-sm"
             >
