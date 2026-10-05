@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Menu, X, Wrench, UserPlus } from 'lucide-react';
+import { Wrench, UserPlus } from 'lucide-react';
 import { useModal } from '../app/ModalContext';
 
 const navLinks = [
@@ -16,7 +16,6 @@ const navLinks = [
 export const Navbar: React.FC = () => {
   const { openServiceModal, openJoinModal } = useModal();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -101,7 +100,7 @@ export const Navbar: React.FC = () => {
             </button>
           </div>
 
-          {/* Mobile Menu Trigger button */}
+          {/* Mobile quick service shortcut (bottom tab bar handles page nav) */}
           <div className="flex md:hidden items-center gap-2">
             <button
               onClick={() => openServiceModal()}
@@ -110,67 +109,9 @@ export const Navbar: React.FC = () => {
             >
               <Wrench className="w-4 h-4" />
             </button>
-
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-xl text-slate-700 hover:text-[#261c72] hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#261c72]"
-              aria-label="Menu principal"
-              aria-expanded={mobileMenuOpen}
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
           </div>
         </div>
       </div>
-
-      {/* Mobile dropdown drawer */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-3 shadow-lg animate-in fade-in slide-in-from-top-2 duration-150">
-          <div className="flex flex-col space-y-1">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                end={link.end}
-                onClick={() => setMobileMenuOpen(false)}
-                className={({ isActive }) =>
-                  `px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                    isActive
-                      ? 'bg-blue-50 text-[#261c72] font-semibold'
-                      : 'text-slate-700 hover:bg-slate-100 hover:text-[#261c72]'
-                  }`
-                }
-              >
-                {link.label}
-              </NavLink>
-            ))}
-          </div>
-
-          <div className="pt-3 border-t border-slate-200 flex flex-col gap-2">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                openServiceModal();
-              }}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-[#261c72] bg-slate-50 border border-slate-300 rounded-xl hover:bg-slate-100"
-            >
-              <Wrench className="w-4 h-4 text-[#261c72]" />
-              <span>Demande de Maintenance</span>
-            </button>
-
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                openJoinModal();
-              }}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-[#ff7f00] rounded-xl hover:bg-[#e67200] shadow-sm"
-            >
-              <UserPlus className="w-4 h-4" />
-              <span>Postuler au Club GIT</span>
-            </button>
-          </div>
-        </div>
-      )}
     </header>
   );
 };
