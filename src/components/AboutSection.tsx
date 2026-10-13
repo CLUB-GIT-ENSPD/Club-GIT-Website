@@ -18,8 +18,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onImageClick }) => {
         "Maîtrise des standards industriels : Git, Docker, microservices"
       ],
       accent: "#261c72",
-      image: "/images/photo1.jpg",
-      imageCaption: "Étudiants du Club GIT en session de programmation collaborative"
+      image: "/images/git-1.jpeg",
+      imageCaption: "Les membres du Club GIT devant la banderole officielle"
     },
     {
       step: "02",

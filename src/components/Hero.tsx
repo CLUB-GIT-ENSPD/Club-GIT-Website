@@ -13,8 +13,8 @@ export const Hero: React.FC<HeroProps> = ({
   onOpenJoinModal,
   onImageClick
 }) => {
-  const heroImageSrc = "/src/assets/images/hero_enspd_tech_lab_1790990938202.jpg";
-  const heroImageTitle = "Laboratoire de Génie Informatique & Télécommunications · ENSPD PK17";
+  const heroImageSrc = "/images/git-1.jpeg";
+  const heroImageTitle = "Membres du Club GIT devant la banderole officielle · ENSPD";
 
   return (
     <section id="hero" className="relative pt-24 pb-16 sm:pt-32 sm:pb-24 overflow-hidden border-b border-slate-200/80 bg-gradient-to-b from-white via-slate-50/50 to-slate-50">
@@ -85,12 +85,12 @@ export const Hero: React.FC<HeroProps> = ({
               {/* Bottom Info Banner */}
               <div className="absolute bottom-5 left-5 right-5 text-white">
                 <div className="flex items-center gap-2 text-xs font-semibold text-[#ff7f00] mb-1">
-                  <span>Laboratoire Numérique & Réseaux</span>
+                  <span>Club GIT · ENSPD</span>
                   <span>·</span>
-                  <span>ENSPD PK17</span>
+                  <span>PK17</span>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-200 leading-snug">
-                  Étudiants et ingénieurs en session collaborative de développement applicatif et configuration réseau.
+                  Les membres du club réunis devant la banderole officielle du département.
                 </p>
               </div>
             </div>
