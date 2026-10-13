@@ -185,7 +185,7 @@ export const BUREAU_MEMBERS: BureauMember[] = [
     id: "b25-com-adj",
     name: "Ombessa Gododo Wilfred",
     role: "Responsable Adjoint Communication",
-    department: "GCI",
+    department: "Génie Civil (GCI)",
     mandate: "2025-2026",
     category: "logistique",
     bio: "Assure la couverture photo/vidéo des ateliers, la rédaction des newsletters et l'animation de la communauté étudiante.",
