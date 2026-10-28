@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CLUB_META } from '../data/clubData';
-import { Mail, MapPin, ArrowUp, Send, Check, MessageCircle, Instagram, Facebook } from 'lucide-react';
+import { Mail, MapPin, ArrowUp, Send, Check, MessageCircle, Instagram, Facebook, Github } from 'lucide-react';
 import { useModal } from '../app/ModalContext';
 
 export const Footer: React.FC = () => {
@@ -204,6 +204,17 @@ export const Footer: React.FC = () => {
                   aria-label="Facebook"
                 >
                   <Facebook className="w-4 h-4" />
+                </a>
+
+                <a
+                  href={CLUB_META.socials.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-2.5 rounded-xl bg-slate-200/70 hover:bg-slate-300/80 text-slate-600 hover:text-slate-900 transition-colors"
+                  title="GitHub officiel"
+                  aria-label="GitHub"
+                >
+                  <Github className="w-4 h-4" />
                 </a>
               </div>
             </div>

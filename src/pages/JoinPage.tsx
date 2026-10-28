@@ -295,7 +295,7 @@ export const JoinPage: React.FC = () => {
                         >
                           <option value="Génie Logiciel (GLO)">Génie Logiciel (GLO)</option>
                           <option value="Génie Réseau & Télécommunications (GRT)">Génie Réseau & Télécommunications (GRT)</option>
-                          <option value="Pôle Maintenance PC & Support Hardware">Pôle Maintenance PC & Support Hardware</option>
+                          {/* <option value="Pôle Maintenance PC & Support Hardware">Pôle Maintenance PC & Support Hardware</option> */}
                         </select>
                       </div>
                     </div>

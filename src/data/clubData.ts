@@ -7,7 +7,7 @@ export const CLUB_META = {
   university: "Université de Douala, Cameroun",
   motto: "L'excellence par le code, l'infrastructure et l'innovation collaborative.",
   campus: "Campus de Ndogbong / PK17, Douala",
-  email: "contact@clubgit-enspd.cm",
+  email: "clubgitenspd13@gmail.com",
   socials: {
     github: "https://github.com/CLUB-GIT-ENSPD",
     linkedin: "https://linkedin.com/company/club-git-enspd",
@@ -18,9 +18,9 @@ export const CLUB_META = {
     googlePhotos: "https://photos.app.goo.gl/club-git-enspd"
   },
   stats: [
-    { value: "+280", label: "Membres Actifs", detail: "Étudiants ingénieurs du cycle polytechnicien" },
+    { value: "+100", label: "Membres Actifs", detail: "Étudiants ingénieurs du cycle polytechnicien" },
     { value: "2", label: "Filières d'Ingénierie", detail: "Génie Logiciel (GLO) & Réseaux Télécoms (GRT)" },
-    { value: "18+", label: "Projets & Hackathons", detail: "Solutions concrètes développées pour le campus" },
+    { value: "5+", label: "Projets & Hackathons", detail: "Solutions concrètes développées pour le campus" },
     { value: "100%", label: "Soutenances Accompagnées", detail: "Taux de réussite aux jurys de diplôme d'ingénieur" }
   ]
 };
@@ -32,7 +32,7 @@ export const TRACKS_DATA: Track[] = [
     name: "Génie Logiciel",
     description: "Conception, développement et déploiement d'applications distribuées, web et mobiles de haute volée. Maîtrise des architectures microservices, des bases de données massives et des pipelines DevOps.",
     iconName: "code",
-    imageUrl: "/images/photo1.jpg",
+    imageUrl: "/images/glo.jpg",
     technologies: ["React / TypeScript", "Node.js / Python", "Docker / Kubernetes", "PostgreSQL / Redis", "GitLab CI/CD", "Next.js"],
     careers: ["Architecte Logiciel", "Ingénieur Full-Stack", "Ingénieur DevOps", "Lead Développeur", "Consultant Cloud"],
     featuredTopics: ["Microservices & Clean Architecture", "Bases de données relationnelles & NoSQL", "Tests automatisés & CI/CD", "Applications Web & Mobile Haute Performance"],
@@ -44,7 +44,7 @@ export const TRACKS_DATA: Track[] = [
     name: "Génie Réseau & Télécommunications",
     description: "Ingénierie des infrastructures d'interconnexion, transmission haut débit et télécommunications numériques. Déploiement de réseaux opérateurs (4G/5G, Fibre Optique), routage avancé et administration systèmes.",
     iconName: "network",
-    imageUrl: "/images/photo3.jpg",
+    imageUrl: "/images/grt.jpg",
     technologies: ["Cisco IOS", "MikroTik RouterOS", "Fibre Optique & FTTH", "Wireshark", "Linux Administration", "VoIP / Asterisk", "BGP / OSPF"],
     careers: ["Ingénieur Réseaux & Télécoms", "Administrateur Systèmes & Infrastructure", "Ingénieur Transmission & Déploiement", "Architecte Réseau Cloud"],
     featuredTopics: ["Routage IP dynamique & SDN", "Réseaux d'opérateurs mobiles 4G/5G", "Infrastructures Datacenter & Virtualisation", "Téléphonie IP et communication unifiée"],
@@ -54,20 +54,20 @@ export const TRACKS_DATA: Track[] = [
 
 export const PROJECTS_DATA: Project[] = [
   {
-    id: "polytech-portal",
-    title: "PolyTech Hub · Portail Estudiantin ENSPD",
-    summary: "Plateforme web unifiée permettant la consultation des plannings de cours, le partage de ressources académiques et la réservation des laboratoires informatiques.",
-    description: "Conçu et maintenu par les étudiants du Club GIT pour simplifier la vie de campus à l'ENSPD. PolyTech Hub centralise les annonces de la scolarité, les supports de cours validés par les délégués et l'accès aux fiches de révision.",
+    id: "soutenance-portal",
+    title: "Soutenances ENSPD — Services Graphiques Professionnels",
+    summary: "Plateforme web unifiée permettant la gestion visuelle des soutenances et des supports de présentation pour les étudiants et les jurys d'examen.",
+    description: "Conçu et maintenu par le club GIT pour assurer votre identité visuelle ainsi que les supports de présentations lors de votre soutenance.",
     category: "logiciel",
     status: "completed",
-    leadName: "Jean-Paul Manga",
-    leadRole: "Responsable Pôle Projets (GLO)",
+    leadName: "TSEFACK KLEIN",
+    leadRole: "Responsable des formations (Adjoint)",
     teamCount: 6,
     progress: 100,
     tags: ["React", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS"],
-    demoUrl: "https://polytech-hub.enspd.cm",
-    repoUrl: "https://github.com/CLUB-GIT-ENSPD/polytech-hub",
-    imageUrl: "/images/photo1.jpg",
+    demoUrl: "https://soutenance-silk.vercel.app/",
+    repoUrl: "https://github.com/CLUB-GIT-ENSPD/SOUTENANCE-ENSPD",
+    imageUrl: "/images/soutenances.png",
     milestones: [
       { title: "Cahier des charges & Ateliers UI/UX", status: "completed", description: "Enquêtes auprès des 500 étudiants de l'école et maquettage interactif." },
       { title: "Développement du Backend & API REST", status: "completed", description: "Architecture sécurisée avec authentification JWT et base relationnelle." },
@@ -75,90 +75,94 @@ export const PROJECTS_DATA: Project[] = [
       { title: "Mise en production & Formation des délégués", status: "completed", description: "Hébergement sur serveur dédié campus et maintenance continue." }
     ],
     outcomes: [
-      "+1 400 étudiants actifs chaque semestre",
-      "99.8% de disponibilité lors des périodes d'examens",
-      "Réduction de 70% des confusions d'horaires et de salles"
+      "+1 10 projets et identitées soumises",
+      "89.8% de disponibilité lors des périodes de soutenances",
     ]
   },
   {
-    id: "campusnet-monitor",
-    title: "CampusNet Sentinel · Surveillance Réseau PK17",
-    summary: "Outil de télémétrie et monitoring passif pour optimiser la bande passante Wi-Fi et détecter les goulets d'étranglement sur le campus.",
-    description: "Projet mené par l'équipe Réseau & Télécoms pour cartographier en temps réel la qualité de transmission, la latence vers les passerelles universitaires et la charge des points d'accès Ubiquiti et MikroTik installés dans les blocs pédagogiques.",
-    category: "reseau",
+    id: "club-git-app",
+    title: "Club GIT : Application mobile membre",
+    summary: "Plateforme d'espace membre pour les membres du club GIT.",
+    description: "Projet mené par les équipes projet du club pour assurer un suivis des membres et de leurs activités au sein du club.",
+    category: "logiciel",
     status: "active",
-    leadName: "Christelle Ngo B.",
-    leadRole: "Vice-Présidente & Lead Infrastructure (GRT)",
+    leadName: "NJOH MASSANGO",
+    leadRole: "Responsable des Projets",
     teamCount: 4,
     progress: 85,
     tags: ["SNMP", "Python", "Prometheus", "Grafana", "MikroTik"],
-    demoUrl: "https://sentinel.clubgit-enspd.cm",
-    repoUrl: "https://github.com/CLUB-GIT-ENSPD/campusnet-sentinel",
-    imageUrl: "/images/photo3.jpg",
+    demoUrl: "front-git-black.vercel.app",
+    repoUrl: "https://github.com/CLUB-GIT-ENSPD/CLUB-GIT",
+    imageUrl: "/images/club-git.png",
     milestones: [
-      { title: "Cartographie de l'infrastructure physique", status: "completed", description: "Recensement des switchs, fibres et bornes Wi-Fi du campus." },
-      { title: "Déploiement des sondes Prometheus & SNMP", status: "completed", description: "Collecte des métriques de trafic, paquets perdus et latence." },
-      { title: "Tableaux de bord d'alerting Grafana", status: "in_progress", description: "Génération automatique d'alertes Telegram en cas de panne de lien." },
-      { title: "Intégration d'un module d'optimisation QoS", status: "planned", description: "Priorisation dynamique des flux académiques et soutenances." }
+{ title: "Cahier des charges & Ateliers UI/UX", status: "completed", description: "Enquêtes auprès des 500 étudiants de l'école et maquettage interactif." },
+      { title: "Développement du Backend & API REST", status: "completed", description: "Architecture sécurisée avec authentification JWT et base relationnelle." },
+      { title: "Intégration Frontend & Responsive Design", status: "completed", description: "Interface optimisée mobile pour les connexions à bande passante réduite." },
+      { title: "Mise en production & Formation des délégués", status: "completed", description: "Hébergement sur serveur dédié campus et maintenance continue." }
     ],
     outcomes: [
-      "Détection des pannes de fibre en moins de 3 minutes",
-      "Visibilité totale sur les 12 zones de couverture du campus",
-      "Support opérationnel fourni au service informatique central"
+      "Gamification du suivis membre",
+      "Gestion de la présence aux réunions et aux activités",
+      "Gestion et supervision des projets"
     ]
   },
-  {
-    id: "opencode-enspd",
-    title: "OpenCode ENSPD · Plateforme d'Algorithmique",
-    summary: "Système d'évaluation automatique de code (Online Judge) pour l'entraînement aux algorithmes et aux structures de données.",
-    description: "Développé pour les étudiants des cycles préparatoire et ingénieur, OpenCode permet de tester la complexité temporelle et spatiale des algorithmes soumis en C, C++, Python et Java avec des jeux de tests automatisés.",
-    category: "logiciel",
-    status: "active",
-    leadName: "Boris Fotso",
-    leadRole: "Lead Algorithmique & Dév (GLO)",
-    teamCount: 4,
-    progress: 80,
-    tags: ["Go", "React", "Docker", "PostgreSQL", "Linux Sandbox"],
-    demoUrl: "https://opencode.clubgit-enspd.cm",
-    repoUrl: "https://github.com/CLUB-GIT-ENSPD/opencode",
-    imageUrl: "/images/photo4.jpg",
-    milestones: [
-      { title: "Architecture du runner sécurisé en sandbox", status: "completed", description: "Exécution isolée des codes étudiants avec quotas stricts de CPU et mémoire." },
-      { title: "Banque d'exercices de travaux dirigés", status: "completed", description: "Intégration de 80 problèmes avec tests unitaires et validation." },
-      { title: "Organisation des sessions de concours live", status: "in_progress", description: "Classement en temps réel pour les marathons d'algorithmique." }
-    ],
-    outcomes: [
-      "+350 soumissions de code validées par semaine",
-      "Augmentation notable des moyennes en algorithmique au premier cycle"
-    ]
-  },
-  {
-    id: "hardware-clinic-portal",
-    title: "KamerClinic · Plateforme Clinique PC & Télécoms",
-    summary: "Application de ticketing et suivi des interventions de maintenance matérielle et réseau offertes aux étudiants.",
-    description: "Permet aux étudiants de réserver un créneau de maintenance pour leur ordinateur portable, de suivre en direct l'état du diagnostic (dépoussiérage, remplacement de pâte thermique, réinstallation OS) et d'évaluer la prestation.",
-    category: "reseau",
-    status: "completed",
-    leadName: "Arnaud Fomekong",
-    leadRole: "Responsable Pôle Maintenance (GRT)",
-    teamCount: 3,
-    progress: 100,
-    tags: ["Vue.js", "Express", "SQLite", "Tailwind CSS"],
-    demoUrl: "https://clinic.clubgit-enspd.cm",
-    repoUrl: "https://github.com/CLUB-GIT-ENSPD/kamerclinic",
-    imageUrl: "/images/maintenance.jpg",
-    milestones: [
-      { title: "Définition du protocole de maintenance", status: "completed", description: "Checklist de diagnostic hardware et sauvegarde des données." },
-      { title: "Développement de la plateforme de prise de RDV", status: "completed", description: "Système de ticket avec notifications par SMS / WhatsApp." },
-      { title: "Bilan opérationnel semestriel", status: "completed", description: "Plus de 200 ordinateurs portables remis en parfait état de marche." }
-    ],
-    outcomes: [
-      "+240 PC portables pris en charge avec succès depuis le lancement",
-      "Dépannage rapide et tarifs étudiants transparents",
-      "Formation pratique aux pannes hardware pour 15 techniciens juniors"
-    ]
-  }
+  // {
+  //   id: "opencode-enspd",
+  //   title: "OpenCode ENSPD · Plateforme d'Algorithmique",
+  //   summary: "Système d'évaluation automatique de code (Online Judge) pour l'entraînement aux algorithmes et aux structures de données.",
+  //   description: "Développé pour les étudiants des cycles préparatoire et ingénieur, OpenCode permet de tester la complexité temporelle et spatiale des algorithmes soumis en C, C++, Python et Java avec des jeux de tests automatisés.",
+  //   category: "logiciel",
+  //   status: "active",
+  //   leadName: "Boris Fotso",
+  //   leadRole: "Lead Algorithmique & Dév (GLO)",
+  //   teamCount: 4,
+  //   progress: 80,
+  //   tags: ["Go", "React", "Docker", "PostgreSQL", "Linux Sandbox"],
+  //   demoUrl: "https://opencode.clubgit-enspd.cm",
+  //   repoUrl: "https://github.com/CLUB-GIT-ENSPD/opencode",
+  //   imageUrl: "/images/photo4.jpg",
+  //   milestones: [
+  //     { title: "Architecture du runner sécurisé en sandbox", status: "completed", description: "Exécution isolée des codes étudiants avec quotas stricts de CPU et mémoire." },
+  //     { title: "Banque d'exercices de travaux dirigés", status: "completed", description: "Intégration de 80 problèmes avec tests unitaires et validation." },
+  //     { title: "Organisation des sessions de concours live", status: "in_progress", description: "Classement en temps réel pour les marathons d'algorithmique." }
+  //   ],
+  //   outcomes: [
+  //     "+350 soumissions de code validées par semaine",
+  //     "Augmentation notable des moyennes en algorithmique au premier cycle"
+  //   ]
+  // },
+  // {
+  //   id: "hardware-clinic-portal",
+  //   title: "KamerClinic · Plateforme Clinique PC & Télécoms",
+  //   summary: "Application de ticketing et suivi des interventions de maintenance matérielle et réseau offertes aux étudiants.",
+  //   description: "Permet aux étudiants de réserver un créneau de maintenance pour leur ordinateur portable, de suivre en direct l'état du diagnostic (dépoussiérage, remplacement de pâte thermique, réinstallation OS) et d'évaluer la prestation.",
+  //   category: "reseau",
+  //   status: "completed",
+  //   leadName: "Arnaud Fomekong",
+  //   leadRole: "Responsable Pôle Maintenance (GRT)",
+  //   teamCount: 3,
+  //   progress: 100,
+  //   tags: ["Vue.js", "Express", "SQLite", "Tailwind CSS"],
+  //   demoUrl: "https://clinic.clubgit-enspd.cm",
+  //   repoUrl: "https://github.com/CLUB-GIT-ENSPD/kamerclinic",
+  //   imageUrl: "/images/maintenance.jpg",
+  //   milestones: [
+  //     { title: "Définition du protocole de maintenance", status: "completed", description: "Checklist de diagnostic hardware et sauvegarde des données." },
+  //     { title: "Développement de la plateforme de prise de RDV", status: "completed", description: "Système de ticket avec notifications par SMS / WhatsApp." },
+  //     { title: "Bilan opérationnel semestriel", status: "completed", description: "Plus de 200 ordinateurs portables remis en parfait état de marche." }
+  //   ],
+  //   outcomes: [
+  //     "+240 PC portables pris en charge avec succès depuis le lancement",
+  //     "Dépannage rapide et tarifs étudiants transparents",
+  //     "Formation pratique aux pannes hardware pour 15 techniciens juniors"
+  //   ]
+  // }
 ];
+
+export const BUREAU_MANDATES = [
+  { id: "2026", label: "Mandat 2026" },
+  { id: "2024-2025", label: "Mandat 2024-2025" }
+] as const;
 
 export const BUREAU_MEMBERS: BureauMember[] = [
   {
@@ -166,7 +170,7 @@ export const BUREAU_MEMBERS: BureauMember[] = [
     name: "Ngooh Agnes Serena",
     role: "Présidente du club",
     department: "Génie Logiciel (GLO)",
-    mandate: "2025-2026",
+    mandate: "2026",
     category: "direction",
     bio: "Pilote la vision stratégique du Club GIT, assure la coordination générale et représente le club auprès de la Direction de l'ENSPD et des partenaires.",
     avatarUrl: "/images/ngooh-agnes-serena.jpeg"
@@ -176,7 +180,7 @@ export const BUREAU_MEMBERS: BureauMember[] = [
     name: "Nzeutem Eunice",
     role: "Secrétaire générale",
     department: "Génie Logiciel (GLO)",
-    mandate: "2025-2026",
+    mandate: "2026",
     category: "direction",
     bio: "Gère les archives officielles, rédige les procès-verbaux des assemblées, coordonne les courriers officiels et la tenue du registre des membres.",
     avatarUrl: "/images/nzeutem-eunice.jpeg"
@@ -186,7 +190,7 @@ export const BUREAU_MEMBERS: BureauMember[] = [
     name: "Ombessa Gododo Wilfred",
     role: "Responsable Adjoint Communication",
     department: "Génie Civil (GCI)",
-    mandate: "2025-2026",
+    mandate: "2026",
     category: "logistique",
     bio: "Assure la couverture photo/vidéo des ateliers, la rédaction des newsletters et l'animation de la communauté étudiante.",
     avatarUrl: "/images/ombessa-gododo-wilfred.jpeg"
@@ -196,11 +200,22 @@ export const BUREAU_MEMBERS: BureauMember[] = [
     name: "Yonga Tiani Aristide Florent",
     role: "Chargé des Affaires Académiques",
     department: "Génie Réseau & Télécommunications (GRT)",
-    mandate: "2025-2026",
+    mandate: "2026",
     category: "academique",
     bio: "Supervise les séances de soutien académique, le parrainage des promotions et l'organisation des simulations de soutenances d'ingénieur.",
     avatarUrl: "/images/yonga-tiani-aristide-florent.jpeg"
-  }
+  },
+  // Exemple à copier puis compléter pour ajouter un membre de l'ancien bureau :
+  // {
+  //   id: "b24-president",
+  //   name: "Nom complet",
+  //   role: "Président(e) du club",
+  //   department: "Filière ou département",
+  //   mandate: "2024-2025",
+  //   category: "direction",
+  //   bio: "Présentez brièvement ses missions au sein du club.",
+  //   avatarUrl: "/images/photo1.jpg"
+  // },
 ];
 
 export const SERVICES_DATA: ServiceItem[] = [

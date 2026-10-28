@@ -6,7 +6,7 @@ interface DepartmentHeadSectionProps {
 }
 
 export const DepartmentHeadSection: React.FC<DepartmentHeadSectionProps> = ({ onImageClick }) => {
-  const photoSrc = "/images/graduation.jpg";
+  const photoSrc = "/images/unknow.jpg";
   const photoTitle = "Direction du Département Génie Informatique & Télécommunications · ENSPD";
 
   return (
