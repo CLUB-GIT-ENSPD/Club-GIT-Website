@@ -6,12 +6,9 @@ import type {
 } from '../types/audition';
 
 /**
- * Données du formulaire d'audition, reprises du formulaire Tally du club
- * (M1evNY). Les identifiants `tallyId` sont conservés pour envoyer les
- * réponses au formulaire Tally officiel.
- *
- * Si le formulaire Tally est modifié, il faut régénérer ce fichier pour
- * récupérer les nouveaux libellés et identifiants de blocs.
+ * Données du formulaire d'audition du Club GIT.
+ * Les identifiants `tallyId` sont conservés comme identifiants historiques
+ * stables pour chaque question (ex. pour d'éventuels imports/exports).
  */
 const AUDITION_GENERAL_QUESTIONS_RAW: AuditionQuestion[] = [
     {

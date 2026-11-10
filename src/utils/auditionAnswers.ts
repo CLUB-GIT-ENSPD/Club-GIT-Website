@@ -68,8 +68,7 @@ export function getAuditionAnswerLabel(
 }
 
 /**
- * Valeur lisible d'une réponse pour l'envoi à Tally.
- * Conserver pour la compatibilité ; actuellement, l'envoi à Tally est désactivé.
+ * Valeurs normalisées des réponses (URL, téléphone) pour l'enregistrement.
  */
 export function getAuditionTallyValue(
   question: AuditionQuestion,
