@@ -9,6 +9,8 @@ import { BureauPage } from '../pages/BureauPage';
 import { ServicesPage } from '../pages/ServicesPage';
 import { GalleryPage } from '../pages/GalleryPage';
 import { JoinPage } from '../pages/JoinPage';
+import { ResultsPage } from '../pages/ResultsPage';
+import { ResultDetailPage } from '../pages/ResultDetailPage';
 
 export const router = createBrowserRouter([
   {
@@ -33,5 +35,14 @@ export const router = createBrowserRouter([
     // Standalone page with its own header (no site shell).
     path: 'rejoindre',
     element: <JoinPage />,
+  },
+  {
+    // Résultats : pages autonomes avec leur propre en-tête.
+    path: 'resultats',
+    element: <ResultsPage />,
+  },
+  {
+    path: 'resultats/:id',
+    element: <ResultDetailPage />,
   },
 ]);

@@ -344,3 +344,14 @@ export const GALLERY_DATA: GalleryItem[] = [
     tags: ["Atelier", "Laboratoire", "Pratique"]
   }
 ];
+
+/**
+ * Formulaire d'audition natif intégré à la page /rejoindre.
+ * Les réponses sont envoyées au formulaire Tally officiel du club, ce qui
+ * permet de conserver la réception des candidatures dans le compte Tally.
+ */
+export const AUDITION_FORM = {
+  questionsCount: 24,
+  levelQuestionsCount: 15,
+  durationLabel: "15 à 20 minutes",
+} as const;

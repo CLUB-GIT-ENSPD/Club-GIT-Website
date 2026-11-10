@@ -4,3 +4,7 @@ dist/
 .env.local
 dev-server.*.log
 preview.*.log
+
+# Candidatures locales (données personnelles, jamais versionnées)
+data/audition-submissions.json
+data/audition-submissions.json.tmp
