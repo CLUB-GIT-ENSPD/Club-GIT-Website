@@ -168,11 +168,11 @@ export const BUREAU_MEMBERS: BureauMember[] = [
   {
     id: "b25-pres",
     name: "Ngooh Agnes Serena",
-    role: "Présidente du club",
+    role: "Présidente",
     department: "Génie Logiciel (GLO)",
     mandate: "2026",
     category: "direction",
-    bio: "Pilote la vision stratégique du Club GIT, assure la coordination générale et représente le club auprès de la Direction de l'ENSPD et des partenaires.",
+    bio: "Définit les orientations du Club GIT, coordonne l'action du bureau et représente le club auprès de l'ENSPD, de ses membres et de ses partenaires.",
     avatarUrl: "/images/ngooh-agnes-serena.jpeg"
   },
   {
@@ -182,7 +182,7 @@ export const BUREAU_MEMBERS: BureauMember[] = [
     department: "Génie Logiciel (GLO)",
     mandate: "2026",
     category: "direction",
-    bio: "Gère les archives officielles, rédige les procès-verbaux des assemblées, coordonne les courriers officiels et la tenue du registre des membres.",
+    bio: "Assure le suivi administratif du club, rédige les comptes rendus des réunions, conserve les documents officiels et tient à jour les informations relatives aux membres.",
     avatarUrl: "/images/nzeutem-eunice.jpeg"
   },
   {
@@ -192,7 +192,7 @@ export const BUREAU_MEMBERS: BureauMember[] = [
     department: "Génie Civil (GCI)",
     mandate: "2026",
     category: "logistique",
-    bio: "Assure la couverture photo/vidéo des ateliers, la rédaction des newsletters et l'animation de la communauté étudiante.",
+    bio: "Appuie le responsable de la communication dans la préparation et la diffusion des annonces et contenus du club, ainsi que dans la couverture de ses activités.",
     avatarUrl: "/images/ombessa-gododo-wilfred.jpeg"
   },
   {
@@ -202,9 +202,152 @@ export const BUREAU_MEMBERS: BureauMember[] = [
     department: "Génie Réseau & Télécommunications (GRT)",
     mandate: "2026",
     category: "academique",
-    bio: "Supervise les séances de soutien académique, le parrainage des promotions et l'organisation des simulations de soutenances d'ingénieur.",
+    bio: "Coordonne les initiatives d'entraide et d'accompagnement académiques du club, notamment les séances de soutien et le partage de ressources entre étudiants.",
     avatarUrl: "/images/yonga-tiani-aristide-florent.jpeg"
   },
+  {
+    id: "b25-maint-charge",
+    name: "Cheuwa Sylvestre Luther",
+    role: "Chargé de la Maintenance Informatique",
+    department: "Génie Réseau & Télécommunications (GRT)",
+    mandate: "2026",
+    category: "maintenance",
+    bio: "Coordonne les activités de maintenance informatique du club : diagnostic des pannes, assistance aux utilisateurs et suivi des interventions sur les équipements.",
+    avatarUrl: "/images/cheuwa-luther.jpg"
+  },
+  {
+    id: "b25-maint-adj",
+    name: "Ngambi Ypecheun Wilfried",
+    role: "Chargé de la Maintenance Adjoint",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2026",
+    category: "maintenance",
+    bio: "Assiste le responsable de la maintenance informatique dans le diagnostic des pannes, l'assistance aux utilisateurs et le suivi des interventions sur les équipements.",
+    avatarUrl: "/images/ngambi-wilfried.jpg"
+  },
+  {
+    id: "b25-censeur-charge",
+    name: "Atekoumbo Excel",
+    role: "Censeur",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2026",
+    category: "direction",
+    bio: "Cette fonction contribue au respect des règles de fonctionnement du club et au bon déroulement de ses activités. Elle assure un suivi de la discipline et porte à l'attention du bureau les situations qui le nécessitent.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+  {
+    id: "b25-com-charge",
+    name: "Tiemouo Djiolio Dorcas",
+    role: "Responsable Communication",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2026",
+    category: "communication",
+    bio: "Prépare et diffuse les informations du club auprès de ses membres et du public, valorise ses activités et veille à la cohérence de ses communications.",
+    avatarUrl: "/images/tiemouo-dorcas.jpg"
+  },
+  {
+    id: "b25-tresor",
+    name: "Signing Tsango Marilyne",
+    role: "Trésorière",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2026",
+    category: "direction",
+    bio: "Suit les recettes et les dépenses du club, contribue à la préparation du budget et rend compte de la situation financière au bureau.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+  {
+    id: "b25-commis-compte",
+    name: "Lambowo Dongmo Darius",
+    role: "Commissaire aux comptes",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2026",
+    category: "direction",
+    bio: "Vérifie les pièces justificatives et les opérations financières du club, puis rend compte de ses contrôles afin de contribuer à une gestion transparente.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+  {
+    id: "b25-commis-compte",
+    name: "Tsana Georis",
+    role: "Commissaire aux comptes",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2026",
+    category: "direction",
+    bio: "Vérifie les pièces justificatives et les opérations financières du club, puis rend compte de ses contrôles afin de contribuer à une gestion transparente.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+  {
+    id: "b25-logis-charge",
+    name: "Se Banack Emilie",
+    role: "Responsable de la Logistique",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2026",
+    category: "direction",
+    bio: "Prépare les moyens matériels nécessaires aux réunions et événements du club : recense les besoins, organise la mise à disposition du matériel et en suit le rangement.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+  {
+    id: "b25-vice-pres",
+    name: "Ngouh Ngalle Christianne",
+    role: "Vice-Présidente",
+    department: "Génie Réseau & Télécommunications (GRT)",
+    mandate: "2026",
+    category: "direction",
+    bio: "Seconde la présidente dans la coordination du bureau et le suivi des activités, et la représente lorsqu'elle ne peut être présente.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+   {
+    id: "b25-projet-charge",
+    name: "Njoh Massango Adolphe",
+    role: "Responsable des Projets",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2026",
+    category: "direction",
+    bio: "Recueille et suit les projets du club, coordonne les équipes qui les réalisent et veille à l'avancement des travaux jusqu'à leur présentation ou livraison.",
+    avatarUrl: "/images/njoh-massango.jpg"
+  },
+  {
+    id: "b25-projet-adj",
+    name: "Assongue Tatang Muriel",
+    role: "Responsable Adjoint des Projets",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2026",
+    category: "direction",
+    bio: "Appuie le responsable des projets dans la coordination des équipes, le suivi de l'avancement et la préparation des livrables.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+
+  {
+    id: "b25-ext-charge",
+    name: "Made Beyaga Gladys",
+    role: "Responsable des Affaires Externes",
+    department: "Génie Réseau & Télécommunications (GRT)",
+    mandate: "2026",
+    category: "direction",
+    bio: "Développe et entretient les relations du club avec les partenaires, les institutions et les autres organisations, et facilite les échanges autour de ses activités.",
+    avatarUrl: "/images/made-gladys.jpg"
+  },
+  {
+    id: "b25-form-adj",
+    name: "Tsefack Calvin Klein",
+    role: "Responsable des Affaires Académiques Adjoint des Formations ",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2026",
+    category: "direction",
+    bio: "Contribue à la préparation et à l'organisation des formations techniques du club, en aidant à mobiliser les intervenants et à adapter les contenus aux besoins des membres.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+  {
+    id: "b25-sg-adj",
+    name: "Douanla Ange",
+    role: "Secrétaire Général Adjoint",
+    department: "Génie Réseau & Télécommunications (GRT)",
+    mandate: "2026",
+    category: "direction",
+    bio: "Appuie le secrétaire général dans le suivi administratif, la rédaction des comptes rendus et la conservation des documents officiels.",
+    avatarUrl: "/images/douanla-ange.jpg"
+  },
+
+  // mandat de 2024/2025
   // Exemple à copier puis compléter pour ajouter un membre de l'ancien bureau :
   // {
   //   id: "b24-president",
@@ -216,6 +359,178 @@ export const BUREAU_MEMBERS: BureauMember[] = [
   //   bio: "Présentez brièvement ses missions au sein du club.",
   //   avatarUrl: "/images/photo1.jpg"
   // },
+  {
+    id: "b24-president",
+    name: "Mongue-Mouyeme Aime Charles",
+    role: "Président",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2024-2025",
+    category: "direction",
+    bio: "Définit les orientations du Club GIT, coordonne l'action du bureau et représente le club auprès de l'ENSPD, de ses membres et de ses partenaires.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+   {
+    id: "b24-sg",
+    name: "Tchamgoue Deugoue Franck",
+    role: "Secrétaire Général",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2024-2025",
+    category: "direction",
+    bio: "Assure le suivi administratif du club, rédige les comptes rendus des réunions, conserve les documents officiels et tient à jour les informations relatives aux membres.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+  {
+    id: "b24-sg-adj",
+    name: "Nzeutem Eunice",
+    role: "Secrétaire Général Adjoint",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2024-2025",
+    category: "direction",
+    bio: "Appuie le secrétaire général dans le suivi administratif, la rédaction des comptes rendus et la conservation des documents officiels.",
+    avatarUrl: "/images/nzeutem-eunice.jpeg"
+  },
+  {
+    id: "b24-com-adj",
+    name: "Tiemouo Djiolio Dorcas",
+    role: "Responsable Adjoint Communication",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2024-2025",
+    category: "communication",
+    bio: "Appuie le responsable de la communication dans la préparation et la diffusion des annonces et contenus du club, ainsi que dans la couverture de ses activités.",
+    avatarUrl: "/images/tiemouo-dorcas.jpg"
+  },
+  {
+    id: "b24-com-charge",
+    name: "Linjouom Alain Pascal",
+    role: "Responsable Communication",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2024-2025",
+    category: "communication",
+    bio: "Coordonne la communication interne et externe du club, prépare et diffuse les annonces et contenus, et veille à la visibilité de ses activités auprès des membres et du public.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+  {
+    id: "b24-vice-pres",
+    name: "Ngooh Agnes Serena",
+    role: "Vice-Présidente",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2024-2025",
+    category: "direction",
+    bio: "Seconde le président dans la coordination du bureau et le suivi des activités, et le représente lorsqu'il ne peut être présent.",
+    avatarUrl: "/images/ngooh-agnes-serena.jpeg"
+  },
+    {
+      id: "b24-tresor",
+      name: "Eken Kom Carmel",
+      role: "Trésorière",
+      department: "Génie Logiciel (GLO)",
+      mandate: "2024-2025",
+      category: "direction",
+      bio: "Suit les recettes et les dépenses du club, contribue à la préparation du budget et rend compte de la situation financière au bureau.",
+      avatarUrl: "/images/unknow.jpg"
+    },
+  {
+    id: "b24-commis-compte",
+    name: "Tamba Foka Adrien",
+    role: "Commissaire aux Comptes",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2024-2025",
+    category: "direction",
+    bio: "Vérifie les pièces justificatives et les opérations financières du club, puis rend compte de ses contrôles afin de contribuer à une gestion transparente.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+  {
+    id: "b24-commis-compte",
+    name: "Signing Tsango Marilyne",
+    role: "Commissaire aux Comptes",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2024-2025",
+    category: "direction",
+    bio: "Vérifie les pièces justificatives et les opérations financières du club, puis rend compte de ses contrôles afin de contribuer à une gestion transparente.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+  {
+    id: "b24-logis-charge",
+    name: "TAKAMTE Kamga Joan",
+    role: "Responsable de la Logistique",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2024-2025",
+    category: "direction",
+    bio: "Prépare les moyens matériels nécessaires aux réunions et événements du club : recense les besoins, organise la mise à disposition du matériel et en suit le rangement.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+  {
+    id: "b24-projet-charge",
+    name: "Nguetsa Kryss",
+    role: "Responsable des Projets",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2024-2025",
+    category: "direction",
+    bio: "Recueille et suit les projets du club, coordonne les équipes qui les réalisent et veille à l'avancement des travaux jusqu'à leur présentation ou livraison.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+  {
+    id: "b24-projet-adj",
+    name: "Djoukeng Jovanie Briyana",
+    role: "Responsable des Projets Adjoint",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2024-2025",
+    category: "direction",
+    bio: "Appuie le responsable des projets dans la coordination des équipes, le suivi de l'avancement et la préparation des livrables.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+
+  {
+    id: "b24-ext-charge",
+    name: "Domtchueng Ryan",
+    role: "Responsable des Affaires Externes",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2024-2025",
+    category: "direction",
+    bio: "Développe et entretient les relations du club avec les partenaires, les institutions et les autres organisations, et facilite les échanges autour de ses activités.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+  {
+    id: "b24-form-charge",
+    name: "Bikond Maurice Arthur",
+    role: "Responsable des Formations",
+    department: "Génie reseau et télécoms (GRT)",
+    mandate: "2024-2025",
+    category: "direction",
+    bio: "Prépare et coordonne les formations techniques du club, en identifiant les besoins des membres et en veillant à la pertinence des contenus et des intervenants.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+ 
+  {
+    id: "b24-censeur-charge",
+    name: "Sepiebou Vianney",
+    role: "Censeur",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2024-2025",
+    category: "direction",
+    bio: "Cette fonction contribue au respect des règles de fonctionnement du club et au bon déroulement de ses activités. Elle assure un suivi de la discipline et porte à l'attention du bureau les situations qui le nécessitent.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+  {
+    id: "b24-censeur-charge",
+    name: "Souop Metse Evora",
+    role: "Censeur",
+    department: "Génie Logiciel (GLO)",
+    mandate: "2024-2025",
+    category: "direction",
+    bio: "Cette fonction contribue au respect des règles de fonctionnement du club et au bon déroulement de ses activités. Elle assure un suivi de la discipline et porte à l'attention du bureau les situations qui le nécessitent.",
+    avatarUrl: "/images/unknow.jpg"
+  },
+  {
+    id: "b24-censeur-charge",
+    name: "Dikongue Friedrich",
+    role: "Censeur",
+    department: "Génie Automobile & Mécatronique (GAM)",
+    mandate: "2024-2025",
+    category: "direction",
+    bio: "Cette fonction contribue au respect des règles de fonctionnement du club et au bon déroulement de ses activités. Elle assure un suivi de la discipline et porte à l'attention du bureau les situations qui le nécessitent.",
+    avatarUrl: "/images/unknow.jpg"
+  },
 ];
 
 export const SERVICES_DATA: ServiceItem[] = [

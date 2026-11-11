@@ -29,6 +29,11 @@ export const BureauMemberModal: React.FC<BureauMemberModalProps> = ({
 
   if (!member) return null;
 
+  const is2024GAMStudent = member.mandate === '2024-2025' && member.department.includes('(GAM)');
+  const memberStatus = member.mandate === '2024-2025' && !is2024GAMStudent
+    ? 'Ingénieur'
+    : 'Élève-ingénieur';
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200"
@@ -107,7 +112,7 @@ export const BureauMemberModal: React.FC<BureauMemberModalProps> = ({
           {/* Institutional Affiliation */}
           <div className="p-3.5 rounded-2xl bg-blue-50/60 border border-blue-100 text-xs text-slate-700 flex items-center gap-2.5">
             <span className="w-2 h-2 rounded-full bg-[#261c72] shrink-0" />
-            <span>Élève-Ingénieur de l'École Nationale Supérieure Polytechnique de Douala (ENSPD)</span>
+            <span>{memberStatus} de l'École Nationale Supérieure Polytechnique de Douala (ENSPD)</span>
           </div>
 
           {/* Contact and Social Links */}

@@ -17,7 +17,7 @@ export interface BureauMember {
   role: string;
   department: string;
   mandate: string; // '2026' | '2024-2025'
-  category: 'direction' | 'technique' | 'academique' | 'logistique';
+  category: 'direction' | 'technique' | 'academique' | 'logistique' | 'communication' | 'maintenance';
   bio: string;
   avatarUrl: string;
   email?: string;

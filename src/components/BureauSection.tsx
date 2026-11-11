@@ -10,6 +10,37 @@ interface BureauSectionProps {
 
 const getMandateStartYear = (mandate: string) => Number(mandate.match(/\d{4}/)?.[0] ?? 0);
 
+const getBureauRoleRank = (role: string) => {
+  const normalizedRole = role
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+
+  const roleOrder = [
+    (value: string) => value.startsWith('president') && !value.startsWith('vice-president'),
+    (value: string) => value.startsWith('vice-president'),
+    (value: string) => value.startsWith('secretaire general') && !value.includes('adjoint'),
+    (value: string) => value.startsWith('secretaire general') && value.includes('adjoint'),
+    (value: string) => value.startsWith('tresorier'),
+    (value: string) => value.startsWith('censeur'),
+    (value: string) => value.startsWith('commissaire aux comptes'),
+    (value: string) => value.includes('affaires externes'),
+    (value: string) => value.includes('projets') && !value.includes('adjoint'),
+    (value: string) => value.includes('projets') && value.includes('adjoint'),
+    (value: string) => value.includes('affaires academiques') && !value.includes('adjoint'),
+    (value: string) => value.includes('affaires academiques') && value.includes('adjoint'),
+    (value: string) => value.includes('formations'),
+    (value: string) => value.includes('communication') && !value.includes('adjoint'),
+    (value: string) => value.includes('communication') && value.includes('adjoint'),
+    (value: string) => value.includes('maintenance') && !value.includes('adjoint'),
+    (value: string) => value.includes('maintenance') && value.includes('adjoint'),
+    (value: string) => value.includes('logistique')
+  ];
+
+  const rank = roleOrder.findIndex((matchesRole) => matchesRole(normalizedRole));
+  return rank === -1 ? roleOrder.length : rank;
+};
+
 export const BureauSection: React.FC<BureauSectionProps> = ({ onSelectMember }) => {
   const [selectedMandate, setSelectedMandate] = useState<string>(BUREAU_MANDATES[0].id);
 
@@ -52,7 +83,9 @@ export const BureauSection: React.FC<BureauSectionProps> = ({ onSelectMember }) 
             key={id}
             id={id}
             label={label}
-            members={BUREAU_MEMBERS.filter((member) => member.mandate === id)}
+            members={BUREAU_MEMBERS
+              .filter((member) => member.mandate === id)
+              .sort((a, b) => getBureauRoleRank(a.role) - getBureauRoleRank(b.role))}
             onSelectMember={onSelectMember}
             selected={selectedMandate === id}
           />
