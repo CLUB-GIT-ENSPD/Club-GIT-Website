@@ -677,8 +677,7 @@ export const GALLERY_DATA: GalleryItem[] = [
 
 /**
  * Formulaire d'audition natif intégré à la page /rejoindre.
- * Les candidatures sont enregistrées dans le fichier JSON du serveur
- * (ou dans le navigateur en repli si l'API est indisponible).
+ * Les candidatures sont enregistrées côté serveur (base Postgres via l'API).
  */
 export const AUDITION_FORM = {
   questionsCount: 24,

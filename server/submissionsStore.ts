@@ -1,66 +1,59 @@
-import { randomUUID } from 'node:crypto';
-import { promises as fs } from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import type {
   AuditionSubmission,
   AuditionSubmissionInput,
-} from '../src/types/audition.ts';
+} from '../src/types/audition';
+import { isDatabaseConfigured } from './db';
+import * as fileStore from './fileSubmissionsStore';
+import * as postgresStore from './postgresStore';
 
-const DATA_DIR = fileURLToPath(new URL('../data', import.meta.url));
-const DATA_FILE = path.join(DATA_DIR, 'audition-submissions.json');
-const TEMP_FILE = path.join(DATA_DIR, 'audition-submissions.json.tmp');
+export type SubmissionStorageKind = 'postgres' | 'file';
 
-/** Sérialise les écritures pour éviter deux lectures/écritures simultanées. */
-let writeQueue: Promise<unknown> = Promise.resolve();
+/**
+ * Postgres dès qu'une base est configurée (Vercel Postgres/Neon).
+ * Sinon on retombe sur le fichier JSON local, pratique en développement mais
+ * non partagé entre machines — jamais utilisé sur Vercel (aucune variable = erreur
+ * visible côté API, voir `getPool`).
+ */
+export function getSubmissionStorage(): SubmissionStorageKind {
+  if (isDatabaseConfigured()) return 'postgres';
 
-async function readSubmissions(): Promise<AuditionSubmission[]> {
-  try {
-    const raw = await fs.readFile(DATA_FILE, 'utf8');
-    if (!raw.trim()) return [];
-    const parsed: unknown = JSON.parse(raw);
-    return Array.isArray(parsed) ? (parsed as AuditionSubmission[]) : [];
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return [];
-    throw error;
+  if (process.env.VERCEL) {
+    throw new Error(
+      'Postgres non configuré sur Vercel : définissez DATABASE_URL ou POSTGRES_URL.'
+    );
   }
+
+  return 'file';
 }
 
-export async function listSubmissions(): Promise<AuditionSubmission[]> {
-  return readSubmissions();
+let warnedAboutFileStorage = false;
+
+export function listSubmissions(): Promise<AuditionSubmission[]> {
+  if (getSubmissionStorage() === 'postgres') {
+    return postgresStore.listSubmissions();
+  }
+
+  if (!warnedAboutFileStorage) {
+    warnedAboutFileStorage = true;
+    console.warn(
+      '[audition-store] Aucune base Postgres configurée : stockage dans data/audition-submissions.json (local uniquement).'
+    );
+  }
+  return fileStore.listSubmissions();
 }
 
-export async function findSubmission(
-  id: string
-): Promise<AuditionSubmission | null> {
-  const submissions = await readSubmissions();
-  return submissions.find((submission) => submission.id === id) ?? null;
+export function findSubmission(id: string): Promise<AuditionSubmission | null> {
+  return getSubmissionStorage() === 'postgres'
+    ? postgresStore.findSubmission(id)
+    : fileStore.findSubmission(id);
 }
 
 export function addSubmission(
   input: AuditionSubmissionInput
 ): Promise<AuditionSubmission> {
-  const task = writeQueue.then(async () => {
-    const submissions = await readSubmissions();
-    const submission: AuditionSubmission = {
-      ...input,
-      id: randomUUID(),
-      submittedAt: new Date().toISOString(),
-    };
-
-    await fs.mkdir(DATA_DIR, { recursive: true });
-    await fs.writeFile(
-      TEMP_FILE,
-      `${JSON.stringify([submission, ...submissions], null, 2)}\n`,
-      'utf8'
-    );
-    await fs.rename(TEMP_FILE, DATA_FILE);
-
-    return submission;
-  });
-
-  writeQueue = task.catch(() => undefined);
-  return task;
+  return getSubmissionStorage() === 'postgres'
+    ? postgresStore.addSubmission(input)
+    : fileStore.addSubmission(input);
 }
 
-export const SUBMISSIONS_FILE = DATA_FILE;
+export const SUBMISSIONS_FILE = fileStore.SUBMISSIONS_FILE;

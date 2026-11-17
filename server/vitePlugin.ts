@@ -1,5 +1,9 @@
 import type { Connect, Plugin } from 'vite';
-import { createAuditionApi } from './api.ts';
+import { config as loadEnv } from 'dotenv';
+import { createAuditionApi } from './api';
+
+// Permet de configurer DATABASE_URL en local via `.env.local`.
+loadEnv({ path: ['.env.local', '.env'], quiet: true });
 
 function mountApi(middlewares: Connect.Server): void {
   // Express et Connect partagent le même contrat runtime ; seuls les types

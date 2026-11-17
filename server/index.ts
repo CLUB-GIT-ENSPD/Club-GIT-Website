@@ -1,7 +1,11 @@
+import { config as loadEnv } from 'dotenv';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
-import { createAuditionApi } from './api.ts';
+import { createAuditionApi } from './api';
+
+// `.env.local` (prioritaire) puis `.env`, pour le lancement auto-hébergé.
+loadEnv({ path: ['.env.local', '.env'], quiet: true });
 
 const DIST_DIR = fileURLToPath(new URL('../dist', import.meta.url));
 const PORT = Number(process.env.PORT ?? 3000);

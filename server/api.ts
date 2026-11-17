@@ -10,9 +10,11 @@ import type {
   AuditionSubmissionInput,
   AuditionTrack,
 } from '../src/types/audition.ts';
-import { addSubmission, findSubmission, listSubmissions } from './submissionsStore.ts';
+import { addSubmission, findSubmission, getSubmissionStorage, listSubmissions } from './submissionsStore';
 
-const ADMIN_CODE = process.env.ADMIN_CODE || 'club-git-admin';
+const ADMIN_CODE = (
+  process.env.ADMIN_CODE || (process.env.VERCEL ? '' : 'club-git-admin')
+).trim();
 
 function cleanString(value: unknown, maxLength: number): string {
   return typeof value === 'string' ? value.trim().slice(0, maxLength) : '';
@@ -86,6 +88,11 @@ function parseSubmissionInput(body: unknown): AuditionSubmissionInput | null {
 }
 
 function requireAdmin(req: Request, res: Response, next: NextFunction): void {
+  if (!ADMIN_CODE) {
+    res.status(503).json({ ok: false, error: 'ADMIN_CODE_NOT_CONFIGURED' });
+    return;
+  }
+
   const provided = req.get('x-admin-code') ?? '';
   if (provided !== ADMIN_CODE) {
     res.status(401).json({ ok: false, error: 'UNAUTHORIZED' });
@@ -123,13 +130,13 @@ export function createAuditionApi(): Express {
   });
 
   app.get('/audition-submissions/admin/check', requireAdmin, (_req, res) => {
-    res.json({ ok: true });
+    res.json({ ok: true, storage: getSubmissionStorage() });
   });
 
   app.get('/audition-submissions', requireAdmin, async (_req, res) => {
     try {
       const submissions = await listSubmissions();
-      res.json({ ok: true, submissions });
+      res.json({ ok: true, storage: getSubmissionStorage(), submissions });
     } catch (error) {
       console.error('[audition-api] Impossible de lire les candidatures :', error);
       res.status(500).json({ ok: false, error: 'STORAGE_ERROR' });

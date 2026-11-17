@@ -35,6 +35,6 @@ Vite 8 + React 19 + TypeScript + Tailwind CSS v4 (via `@tailwindcss/vite`). Sing
 
 - `.gitignore` only covers `.vscode/*` — never commit `node_modules/`, `dist/`, `.env.local`.
 - `README.md` mentions `GEMINI_API_KEY` in `.env.local` and `metadata.json` has an AI Studio capability — leftovers, unused in code. No key needed for local dev.
-- `express` / `dotenv` / `tsx` are in `package.json` but there is no server file — frontend only, don't add a backend unless asked.
+- `express` / `dotenv` / `tsx` servent l'API d'audition : `server/api.ts` est montée par `server/vitePlugin.ts` en dev/preview et par les fonctions Vercel `api/audition-submissions/*` (via `server/vercelHandler.ts`). Stockage : Postgres si `DATABASE_URL`/`POSTGRES_URL` est défini, sinon `data/audition-submissions.json` en local (jamais commité). Aucune persistance navigateur (`localStorage`/`sessionStorage`) pour les candidatures. Voir `DEPLOIEMENT.md`.
 - Don't touch the `DISABLE_HMR` / `watch` block in `vite.config.ts` (AI Studio workaround).
 - Branch: `main`.

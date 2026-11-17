@@ -33,10 +33,7 @@ import {
   normalizePhone,
   normalizeUrl,
 } from '../utils/auditionAnswers';
-import {
-  saveAuditionSubmission,
-  type SubmissionStorage,
-} from '../utils/auditionStorage';
+import { saveAuditionSubmission } from '../utils/auditionStorage';
 import type {
   AuditionAnswers,
   AuditionLevel,
@@ -218,10 +215,7 @@ export const AuditionForm: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
-  const [savedResult, setSavedResult] = useState<{
-    id: string;
-    storage: SubmissionStorage;
-  } | null>(null);
+  const [savedId, setSavedId] = useState<string | null>(null);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -383,29 +377,26 @@ export const AuditionForm: React.FC = () => {
         });
       }
 
-      // Enregistrement dans le fichier JSON (ou localStorage si API indisponible).
-      try {
-        const saved = await saveAuditionSubmission({
-          fullName: (answers['g-nom-et-prenom'] ?? '').trim(),
-          email: (answers['g-adresse-email'] ?? '').trim(),
-          whatsapp: normalizePhone(answers['g-numero-whatsapp'] ?? ''),
-          githubUrl: normalizeUrl(answers['f-lien-github-ou-portfolio-facultatif'] ?? ''),
-          level,
-          track,
-          tallySubmitted: false,
-          answers: submissionAnswers,
-        });
-        setSavedResult({ id: saved.submission.id, storage: saved.storage });
-      } catch {
-        // Le stockage a échoué : la candidature restera visible sur cet appareil.
-        setSavedResult({ id: 'local-' + Date.now(), storage: 'local' });
-      }
+      const saved = await saveAuditionSubmission({
+        fullName: (answers['g-nom-et-prenom'] ?? '').trim(),
+        email: (answers['g-adresse-email'] ?? '').trim(),
+        whatsapp: normalizePhone(answers['g-numero-whatsapp'] ?? ''),
+        githubUrl: normalizeUrl(answers['f-lien-github-ou-portfolio-facultatif'] ?? ''),
+        level,
+        track,
+        tallySubmitted: false,
+        answers: submissionAnswers,
+      });
+      setSavedId(saved.id);
 
       setSubmitted(true);
       setShowErrorSummary(false);
       setErrors({});
     } catch (error) {
-      setSubmitError(error instanceof Error ? error.message : 'Erreur réseau inconnue');
+      // Aucun repli local : on laisse le formulaire ouvert avec une erreur visible.
+      setSubmitError(
+        error instanceof Error ? error.message : "L'envoi de la candidature a échoué."
+      );
     } finally {
       setSubmitting(false);
     }
@@ -429,7 +420,7 @@ export const AuditionForm: React.FC = () => {
     setShowErrorSummary(false);
     setSubmitError(null);
     setSubmitted(false);
-    setSavedResult(null);
+    setSavedId(null);
     setStep(0);
   };
 
@@ -492,32 +483,21 @@ export const AuditionForm: React.FC = () => {
             </p>
           </div>
 
-          {savedResult && (
-            <div
-              className={`mx-auto mt-4 max-w-md rounded-2xl border p-3.5 text-left text-xs ${
-                savedResult.storage === 'server'
-                  ? 'border-emerald-200 bg-emerald-50 text-emerald-900'
-                  : 'border-amber-200 bg-amber-50 text-amber-900'
-              }`}
-            >
-              <p className="font-semibold">
-                {savedResult.storage === 'server'
-                  ? 'Candidature enregistrée dans le fichier du club.'
-                  : "Candidature enregistrée sur cet appareil uniquement (serveur indisponible)."}
-              </p>
+          {savedId && (
+            <div className="mx-auto mt-4 max-w-md rounded-2xl border border-emerald-200 bg-emerald-50 p-3.5 text-left text-xs text-emerald-900">
+              <p className="font-semibold">Candidature enregistrée sur le serveur du club.</p>
               <p className="mt-1 leading-relaxed text-slate-700">
-                {savedResult.storage === 'server'
-                  ? 'Conserve le lien ci-dessous : il te permet de retrouver le récapitulatif de tes réponses à tout moment.'
-                  : 'Le récapitulatif reste accessible depuis ce navigateur. Pense à faire une capture si tu changes d’appareil.'}
+                Conserve le lien ci-dessous : il te permet de retrouver le récapitulatif de tes
+                réponses à tout moment.
               </p>
             </div>
           )}
 
           <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
-            {savedResult && (
+            {savedId && (
               <button
                 type="button"
-                onClick={() => navigate(`/resultats/${savedResult.id}`)}
+                onClick={() => navigate(`/resultats/${savedId}`)}
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#261c72] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1d1557]"
               >
                 <Eye className="h-4 w-4" />
@@ -536,7 +516,7 @@ export const AuditionForm: React.FC = () => {
               type="button"
               onClick={() => navigate('/')}
               className={`inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors ${
-                savedResult
+                savedId
                   ? 'border border-slate-300 bg-white text-slate-700 hover:border-slate-400 hover:bg-slate-50'
                   : 'bg-[#261c72] text-white hover:bg-[#1d1557]'
               }`}

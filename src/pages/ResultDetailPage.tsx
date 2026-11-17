@@ -24,12 +24,11 @@ import {
   formatSubmissionDate,
   getAuditionSubmission,
   readAdminCode,
-  type SubmissionStorage,
 } from '../utils/auditionStorage';
 
 type DetailState =
   | { status: 'loading' }
-  | { status: 'ready'; submission: AuditionSubmission; storage: SubmissionStorage }
+  | { status: 'ready'; submission: AuditionSubmission }
   | { status: 'missing' }
   | { status: 'error' };
 
@@ -66,9 +65,7 @@ export const ResultDetailPage: React.FC = () => {
       .then((result) => {
         if (!active) return;
         setState(
-          result
-            ? { status: 'ready', submission: result.submission, storage: result.storage }
-            : { status: 'missing' }
+          result ? { status: 'ready', submission: result } : { status: 'missing' }
         );
       })
       .catch(() => {
@@ -141,9 +138,8 @@ export const ResultDetailPage: React.FC = () => {
                 Candidature introuvable
               </h1>
               <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-slate-600">
-                Ce lien est invalide, ou la candidature a été enregistrée sur un autre appareil
-                alors que le serveur JSON n'était pas disponible. Contacte le bureau du club si tu
-                penses qu'il s'agit d'une erreur.
+                Ce lien est invalide, ou la candidature n'existe plus sur le serveur du club.
+                Contacte le bureau du club si tu penses qu'il s'agit d'une erreur.
               </p>
               <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
                 <Link
@@ -172,8 +168,8 @@ export const ResultDetailPage: React.FC = () => {
               <div>
                 <p className="font-bold">Impossible de charger la candidature.</p>
                 <p className="mt-1 text-xs leading-relaxed">
-                  Réessaie dans un instant. Si le problème persiste, vérifie que le serveur du site
-                  est démarré.
+                  Réessaie dans un instant. Si le problème persiste, le serveur du club ou sa base
+                  de données est peut-être indisponible.
                 </p>
               </div>
             </div>
@@ -181,14 +177,6 @@ export const ResultDetailPage: React.FC = () => {
 
           {state.status === 'ready' && (
             <div className="space-y-6">
-              {state.storage === 'local' && (
-                <div className="rounded-2xl border border-amber-200 bg-amber-50 p-3.5 text-xs leading-relaxed text-amber-950 print:hidden">
-                  <strong className="font-bold">Résultat local.</strong> Cette candidature est
-                  enregistrée dans ce navigateur uniquement, car l'API JSON n'était pas disponible
-                  lors de l'envoi.
-                </div>
-              )}
-
               <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
                 <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
                   <div className="flex items-start gap-4">

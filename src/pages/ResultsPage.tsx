@@ -2,10 +2,12 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   AlertCircle,
+  BarChart3,
   CalendarClock,
   Download,
   Eye,
   FileJson,
+  FileSpreadsheet,
   GraduationCap,
   Loader2,
   LockKeyhole,
@@ -14,12 +16,14 @@ import {
   RefreshCw,
   Search,
   ShieldCheck,
+  SlidersHorizontal,
+  Table2,
   Users,
-  WifiOff,
 } from 'lucide-react';
 import { ResultsHeader } from '../components/ResultsHeader';
+import { AuditionAnalytics } from '../components/AuditionAnalytics';
 import { AUDITION_LEVEL_LABELS, AUDITION_TRACK_LABELS } from '../data/auditionData';
-import type { AuditionSubmission } from '../types/audition';
+import type { AuditionLevel, AuditionSubmission, AuditionTrack } from '../types/audition';
 import {
   clearAdminCode,
   downloadSubmissionsJson,
@@ -27,10 +31,13 @@ import {
   formatSubmissionDate,
   readAdminCode,
   storeAdminCode,
-  type SubmissionStorage,
 } from '../utils/auditionStorage';
+import { downloadSubmissionsCsv } from '../utils/auditionAnalytics';
 
 type ViewMode = 'loading' | 'gate' | 'results';
+type ResultView = 'list' | 'analyse';
+type LevelFilter = 'all' | AuditionLevel;
+type TrackFilter = 'all' | AuditionTrack;
 
 const getInitials = (name: string): string =>
   name
@@ -41,44 +48,51 @@ const getInitials = (name: string): string =>
     .join('');
 
 export const ResultsPage: React.FC = () => {
-  const [mode, setMode] = useState<ViewMode>('loading');
-  const [storage, setStorage] = useState<SubmissionStorage | null>(null);
+  const [mode, setMode] = useState<ViewMode>('gate');
   const [submissions, setSubmissions] = useState<AuditionSubmission[]>([]);
-  const [adminCode, setAdminCode] = useState(() => readAdminCode());
+  const [adminCode, setAdminCode] = useState('');
   const [codeInput, setCodeInput] = useState('');
   const [gateError, setGateError] = useState<string | null>(null);
-  const [loadError, setLoadError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
+  const [view, setView] = useState<ResultView>('list');
+  const [levelFilter, setLevelFilter] = useState<LevelFilter>('all');
+  const [trackFilter, setTrackFilter] = useState<TrackFilter>('all');
 
   const loadSubmissions = useCallback(async (code: string) => {
     setLoading(true);
-    setLoadError(null);
+    setGateError(null);
 
     const result = await fetchAuditionSubmissions(code);
 
     if (!result.ok) {
       setMode('gate');
       setSubmissions([]);
-      setStorage(null);
-      setGateError(code ? 'Code administrateur incorrect.' : null);
       setLoading(false);
+      setGateError(
+        result.reason === 'unauthorized'
+          ? code
+            ? 'Code administrateur refusé. Vérifie le code saisi (et la variable ADMIN_CODE du serveur).'
+            : 'Saisis le code administrateur.'
+          : result.reason === 'network'
+            ? "Serveur injoignable : vérifie que le site tourne avec son API (npm run dev) et que la base Postgres répond."
+            : `Le serveur n'a pas pu lire les candidatures${result.status ? ` (HTTP ${result.status}${result.code ? ` · ${result.code}` : ''})` : ''}. Vérifie que Postgres est démarré puis réessaie.`
+      );
       return;
     }
 
     setSubmissions(result.submissions);
-    setStorage(result.storage);
+    setAdminCode(code);
+    storeAdminCode(code);
     setMode('results');
-    if (result.storage === 'server') {
-      setAdminCode(code);
-      storeAdminCode(code);
-    }
-    setGateError(null);
     setLoading(false);
   }, []);
 
+  // Aucune persistance navigateur : le code n'est conservé qu'en mémoire pour
+  // la session courante, donc un rechargement de page redemande le code.
   useEffect(() => {
-    void loadSubmissions(readAdminCode());
+    const remembered = readAdminCode();
+    if (remembered) void loadSubmissions(remembered);
   }, [loadSubmissions]);
 
   const handleUnlock = (event: React.FormEvent<HTMLFormElement>) => {
@@ -92,7 +106,7 @@ export const ResultsPage: React.FC = () => {
   };
 
   const handleRefresh = () => {
-    void loadSubmissions(storage === 'server' ? adminCode || readAdminCode() : '');
+    void loadSubmissions(adminCode);
   };
 
   const handleLock = () => {
@@ -100,16 +114,25 @@ export const ResultsPage: React.FC = () => {
     setAdminCode('');
     setCodeInput('');
     setSubmissions([]);
-    setStorage(null);
     setMode('gate');
     setGateError(null);
   };
 
+  const scopedSubmissions = useMemo(
+    () =>
+      submissions.filter(
+        (submission) =>
+          (levelFilter === 'all' || submission.level === Number(levelFilter)) &&
+          (trackFilter === 'all' || submission.track === trackFilter)
+      ),
+    [submissions, levelFilter, trackFilter]
+  );
+
   const filteredSubmissions = useMemo(() => {
     const query = search.trim().toLowerCase();
-    if (!query) return submissions;
+    if (!query) return scopedSubmissions;
 
-    return submissions.filter((submission) =>
+    return scopedSubmissions.filter((submission) =>
       [
         submission.fullName,
         submission.email,
@@ -118,17 +141,19 @@ export const ResultsPage: React.FC = () => {
         AUDITION_TRACK_LABELS[submission.track] ?? '',
       ].some((value) => value.toLowerCase().includes(query))
     );
-  }, [search, submissions]);
+  }, [search, scopedSubmissions]);
 
   const stats = useMemo(
     () => ({
-      total: submissions.length,
-      informatique: submissions.filter((item) => item.track === 'informatique').length,
-      telecoms: submissions.filter((item) => item.track === 'telecoms').length,
-      latest: submissions[0]?.submittedAt ?? null,
+      total: scopedSubmissions.length,
+      informatique: scopedSubmissions.filter((item) => item.track === 'informatique').length,
+      telecoms: scopedSubmissions.filter((item) => item.track === 'telecoms').length,
+      latest: scopedSubmissions[0]?.submittedAt ?? null,
     }),
-    [submissions]
+    [scopedSubmissions]
   );
+
+  const hasActiveFilters = levelFilter !== 'all' || trackFilter !== 'all';
 
   return (
     <div className="flex min-h-screen flex-col bg-slate-50 text-slate-900">
@@ -226,10 +251,10 @@ export const ResultsPage: React.FC = () => {
               )}
 
               <p className="mt-4 flex items-start gap-1.5 text-[11px] leading-relaxed text-slate-500">
-                <WifiOff className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0" />
                 <span>
-                  Si l'API n'est pas disponible (site statique), les candidatures enregistrées dans
-                  ce navigateur s'affichent automatiquement, sans code.
+                  Les candidatures sont lues sur le serveur partagé (base Postgres). Le code n'est
+                  pas mémorisé par le navigateur : il est redemandé après chaque rechargement.
                 </span>
               </p>
             </div>
@@ -237,32 +262,6 @@ export const ResultsPage: React.FC = () => {
 
           {mode === 'results' && (
             <div className="mt-8 space-y-6">
-              {storage === 'local' && (
-                <div className="flex items-start gap-2.5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-xs text-amber-950">
-                  <WifiOff className="mt-0.5 h-4 w-4 shrink-0" />
-                  <div className="space-y-1">
-                    <p className="font-bold">Mode local : l'API JSON n'est pas disponible.</p>
-                    <p className="leading-relaxed text-amber-900">
-                      Les candidatures affichées ont été envoyées depuis ce navigateur. Pour
-                      activer le fichier JSON partagé, lance le site avec{' '}
-                      <code className="rounded bg-white/70 px-1 py-0.5 font-mono">npm run dev</code>{' '}
-                      (ou <code className="rounded bg-white/70 px-1 py-0.5 font-mono">npm start</code>{' '}
-                      après le build).
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {loadError && (
-                <div
-                  role="alert"
-                  className="flex items-start gap-2.5 rounded-2xl border border-red-200 bg-red-50 p-4 text-xs text-red-700"
-                >
-                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                  <span>{loadError}</span>
-                </div>
-              )}
-
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 <StatCard icon={<Users className="h-4 w-4" />} label="Candidatures" value={String(stats.total)} />
                 <StatCard
@@ -279,23 +278,78 @@ export const ResultsPage: React.FC = () => {
                 />
               </div>
 
+              <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-slate-200 bg-white p-3 shadow-xs">
+                <span className="inline-flex items-center gap-1.5 pl-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                  <SlidersHorizontal className="h-3.5 w-3.5" />
+                  Filtres
+                </span>
+
+                <select
+                  value={levelFilter}
+                  onChange={(event) => setLevelFilter(event.target.value as LevelFilter)}
+                  aria-label="Filtrer par niveau"
+                  className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700 shadow-xs outline-none transition focus:border-[#261c72] focus:ring-2 focus:ring-indigo-100"
+                >
+                  <option value="all">Tous les niveaux</option>
+                  <option value="1">Niveau 1</option>
+                  <option value="2">Niveau 2</option>
+                  <option value="3">Niveau 3</option>
+                  <option value="4">Niveau 4</option>
+                </select>
+
+                <select
+                  value={trackFilter}
+                  onChange={(event) => setTrackFilter(event.target.value as TrackFilter)}
+                  aria-label="Filtrer par filière"
+                  className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700 shadow-xs outline-none transition focus:border-[#261c72] focus:ring-2 focus:ring-indigo-100"
+                >
+                  <option value="all">Toutes les filières</option>
+                  <option value="informatique">Informatique</option>
+                  <option value="telecoms">Télécoms</option>
+                </select>
+
+                {hasActiveFilters && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setLevelFilter('all');
+                      setTrackFilter('all');
+                    }}
+                    className="text-xs font-semibold text-[#261c72] underline-offset-2 hover:underline"
+                  >
+                    Réinitialiser
+                  </button>
+                )}
+
+                <span className="ml-auto font-mono text-[10px] text-slate-400">
+                  {scopedSubmissions.length}/{submissions.length} candidature
+                  {submissions.length > 1 ? 's' : ''}
+                </span>
+              </div>
+
               <div className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-xs sm:flex-row sm:items-center sm:justify-between">
-                <div className="relative w-full sm:max-w-sm">
-                  <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                  <input
-                    type="search"
-                    value={search}
-                    onChange={(event) => setSearch(event.target.value)}
-                    placeholder="Rechercher un nom, un email, un niveau…"
-                    aria-label="Rechercher une candidature"
-                    className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-3 text-sm text-slate-900 shadow-xs outline-none transition placeholder:text-slate-400 focus:border-[#261c72] focus:ring-2 focus:ring-indigo-100"
-                  />
-                </div>
+                {view === 'list' ? (
+                  <div className="relative w-full sm:max-w-sm">
+                    <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                    <input
+                      type="search"
+                      value={search}
+                      onChange={(event) => setSearch(event.target.value)}
+                      placeholder="Rechercher un nom, un email, un niveau…"
+                      aria-label="Rechercher une candidature"
+                      className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-3 text-sm text-slate-900 shadow-xs outline-none transition placeholder:text-slate-400 focus:border-[#261c72] focus:ring-2 focus:ring-indigo-100"
+                    />
+                  </div>
+                ) : (
+                  <p className="text-xs leading-relaxed text-slate-500">
+                    Vue d'ensemble calculée en direct à partir des candidatures chargées.
+                  </p>
+                )}
 
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-[11px] font-medium text-slate-600">
                     <FileJson className="h-3.5 w-3.5" />
-                    {storage === 'server' ? 'Fichier JSON du serveur' : 'Stockage local du navigateur'}
+                    Serveur partagé
                   </span>
                   <button
                     type="button"
@@ -315,20 +369,61 @@ export const ResultsPage: React.FC = () => {
                     <Download className="h-3.5 w-3.5" />
                     Exporter JSON
                   </button>
-                  {storage === 'server' && (
-                    <button
-                      type="button"
-                      onClick={handleLock}
-                      className="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
-                    >
-                      <LogOut className="h-3.5 w-3.5" />
-                      Verrouiller
-                    </button>
-                  )}
+                  <button
+                    type="button"
+                    onClick={() => downloadSubmissionsCsv(scopedSubmissions)}
+                    disabled={scopedSubmissions.length === 0}
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    <FileSpreadsheet className="h-3.5 w-3.5" />
+                    Exporter CSV
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleLock}
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
+                  >
+                    <LogOut className="h-3.5 w-3.5" />
+                    Verrouiller
+                  </button>
                 </div>
               </div>
 
-              {submissions.length === 0 ? (
+              <div className="flex flex-wrap items-center gap-1.5 border-b border-slate-200">
+                <button
+                  type="button"
+                  onClick={() => setView('list')}
+                  aria-pressed={view === 'list'}
+                  className={`inline-flex items-center gap-1.5 border-b-2 px-3 py-2.5 text-xs font-semibold transition-colors ${
+                    view === 'list'
+                      ? 'border-[#261c72] text-[#261c72]'
+                      : 'border-transparent text-slate-500 hover:text-slate-700'
+                  }`}
+                >
+                  <Table2 className="h-3.5 w-3.5" />
+                  Candidatures
+                  <span className="rounded-full bg-slate-100 px-1.5 py-0.5 font-mono text-[10px] text-slate-600">
+                    {scopedSubmissions.length}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setView('analyse')}
+                  aria-pressed={view === 'analyse'}
+                  className={`inline-flex items-center gap-1.5 border-b-2 px-3 py-2.5 text-xs font-semibold transition-colors ${
+                    view === 'analyse'
+                      ? 'border-[#261c72] text-[#261c72]'
+                      : 'border-transparent text-slate-500 hover:text-slate-700'
+                  }`}
+                >
+                  <BarChart3 className="h-3.5 w-3.5" />
+                  Analyse en ligne
+                </button>
+              </div>
+
+              {view === 'analyse' ? (
+                <AuditionAnalytics submissions={scopedSubmissions} />
+              ) : submissions.length === 0 ? (
                 <div className="rounded-3xl border border-dashed border-slate-300 bg-white p-10 text-center shadow-xs">
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-500">
                     <Users className="h-6 w-6" />
@@ -445,7 +540,7 @@ export const ResultsPage: React.FC = () => {
                       {search.trim() ? ` sur ${submissions.length}` : ''}
                     </span>
                     <span className="font-mono text-[10px] text-slate-400">
-                      Source : {storage === 'server' ? 'data/audition-submissions.json' : 'localStorage'}
+                      Source : serveur partagé (Postgres)
                     </span>
                   </div>
                 </div>

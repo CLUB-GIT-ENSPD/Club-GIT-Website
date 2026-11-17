@@ -27,7 +27,7 @@ export type AuditionAnswers = Record<string, string>;
 
 export type AuditionSubmissionSection = 'general' | 'level' | 'final';
 
-/** Réponse telle qu'enregistrée dans le fichier JSON, avec un libellé lisible. */
+/** Réponse telle qu'enregistrée côté serveur, avec un libellé lisible. */
 export interface AuditionSubmissionAnswer {
   questionId: string;
   tallyId: string;
@@ -51,7 +51,7 @@ export interface AuditionSubmissionInput {
   answers: AuditionSubmissionAnswer[];
 }
 
-/** Candidature persistée côté serveur (ou en repli dans le localStorage). */
+/** Candidature persistée côté serveur (Postgres). */
 export interface AuditionSubmission extends AuditionSubmissionInput {
   id: string;
   submittedAt: string;
