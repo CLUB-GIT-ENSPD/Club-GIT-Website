@@ -10,7 +10,7 @@ import type {
   AuditionSubmissionInput,
   AuditionTrack,
 } from '../src/types/audition.ts';
-import { addSubmission, findSubmission, getSubmissionStorage, listSubmissions } from './submissionsStore.ts';
+import { addSubmission, findSubmission, getSubmissionStorage, listSubmissions } from './submissionsStore.js';
 
 const ADMIN_CODE = (
   process.env.ADMIN_CODE || (process.env.VERCEL ? '' : 'club-git-admin')

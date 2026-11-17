@@ -3,7 +3,7 @@ import type {
   AuditionSubmission,
   AuditionSubmissionInput,
 } from '../src/types/audition';
-import { getPool } from './db.ts';
+import { getPool } from './db.js';
 
 const SCHEMA_SQL = `
 create table if not exists audition_submissions (
