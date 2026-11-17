@@ -2,9 +2,9 @@ import type {
   AuditionSubmission,
   AuditionSubmissionInput,
 } from '../src/types/audition';
-import { isDatabaseConfigured } from './db';
-import * as fileStore from './fileSubmissionsStore';
-import * as postgresStore from './postgresStore';
+import { isDatabaseConfigured } from './db.ts';
+import * as fileStore from './fileSubmissionsStore.ts';
+import * as postgresStore from './postgresStore.ts';
 
 export type SubmissionStorageKind = 'postgres' | 'file';
 

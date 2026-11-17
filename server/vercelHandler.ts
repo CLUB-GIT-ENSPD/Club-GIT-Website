@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { createAuditionApi } from './api';
+import { createAuditionApi } from './api.ts';
 
 type VercelHandler = (req: IncomingMessage, res: ServerResponse) => void;
 
