@@ -10,6 +10,9 @@ function readConnectionString(): string {
     process.env.DATABASE_URL ||
     process.env.POSTGRES_URL ||
     process.env.POSTGRES_PRISMA_URL ||
+    // Neon (intégration Vercel) expose aussi la chaîne directe, sans pooler.
+    process.env.DATABASE_URL_UNPOOLED ||
+    process.env.POSTGRES_URL_NON_POOLING ||
     ''
   ).trim();
 }

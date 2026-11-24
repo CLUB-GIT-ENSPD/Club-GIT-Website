@@ -55,5 +55,3 @@ export function addSubmission(
     ? postgresStore.addSubmission(input)
     : fileStore.addSubmission(input);
 }
-
-export const SUBMISSIONS_FILE = fileStore.SUBMISSIONS_FILE;
