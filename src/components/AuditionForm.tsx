@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   AlertCircle,
-  ArrowLeft,
   ArrowRight,
   CheckCircle2,
   Clock,
@@ -41,6 +40,16 @@ import type {
   AuditionSubmissionAnswer,
   AuditionTrack,
 } from '../types/audition';
+
+/** Durée du compte à rebours pour chaque étape chronométrée (hors première page). */
+const TIMED_STEP_DURATION_SECONDS = 90;
+
+const formatCountdown = (totalSeconds: number): string => {
+  const safeSeconds = Math.max(0, totalSeconds);
+  const minutes = Math.floor(safeSeconds / 60);
+  const seconds = safeSeconds % 60;
+  return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+};
 
 interface QuestionFieldProps {
   question: AuditionQuestion;
@@ -216,11 +225,15 @@ export const AuditionForm: React.FC = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [savedId, setSavedId] = useState<string | null>(null);
+  const [timeLeft, setTimeLeft] = useState(TIMED_STEP_DURATION_SECONDS);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const hasMountedRef = useRef(false);
+  const submitAuditionRef = useRef<
+    ((skipValidation?: boolean) => Promise<void>) | null
+  >(null);
 
   const level: AuditionLevel | null = getAuditionLevelFromAnswer(
     answers[AUDITION_LEVEL_QUESTION_ID]
@@ -247,6 +260,8 @@ export const AuditionForm: React.FC = () => {
   ).length;
   const progress = submitted ? 100 : ((step + 1) / 3) * 100;
   const errorCount = Object.keys(errors).length;
+  const timerWarning = timeLeft <= 30;
+  const timerCritical = timeLeft <= 15;
 
   const levelLabel = level ? AUDITION_LEVEL_LABELS[level] : null;
   const trackLabel = track ? AUDITION_TRACK_LABELS[track] : null;
@@ -273,6 +288,40 @@ export const AuditionForm: React.FC = () => {
     }
     containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     headingRef.current?.focus({ preventScroll: true });
+  }, [step, submitted]);
+
+  // Compte à rebours des étapes 2 et 3 : à 00:00, on avance automatiquement
+  // (ou on envoie la candidature sur la dernière étape). Le retour arrière est
+  // volontairement impossible.
+  useEffect(() => {
+    if (submitted || step === 0) return;
+
+    const deadline = Date.now() + TIMED_STEP_DURATION_SECONDS * 1000;
+    setTimeLeft(TIMED_STEP_DURATION_SECONDS);
+
+    let intervalId = 0;
+    const tick = () => {
+      const remaining = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+      setTimeLeft(remaining);
+
+      if (remaining > 0) return;
+
+      window.clearInterval(intervalId);
+
+      if (step < 2) {
+        setShowErrorSummary(false);
+        setErrors({});
+        setTimeLeft(TIMED_STEP_DURATION_SECONDS);
+        setStep(step + 1);
+        return;
+      }
+
+      void submitAuditionRef.current?.(true);
+    };
+
+    intervalId = window.setInterval(tick, 1000);
+
+    return () => window.clearInterval(intervalId);
   }, [step, submitted]);
 
   const validateQuestions = (questions: AuditionQuestion[]) => {
@@ -309,12 +358,6 @@ export const AuditionForm: React.FC = () => {
     setStep((current) => Math.min(current + 1, 2));
   };
 
-  const goToPreviousStep = () => {
-    setShowErrorSummary(false);
-    setErrors({});
-    setStep((current) => Math.max(current - 1, 0));
-  };
-
   const handleAnswerChange = (questionId: string, value: string) => {
     setAnswers((previous) => ({ ...previous, [questionId]: value }));
     setErrors((previous) => {
@@ -325,26 +368,26 @@ export const AuditionForm: React.FC = () => {
     });
   };
 
-  const submitAudition = async () => {
-    const generalErrors = validateQuestions(AUDITION_GENERAL_QUESTIONS);
-    const levelErrors = validateQuestions(levelQuestions);
-    const finalErrors = validateQuestions(AUDITION_FINAL_QUESTIONS);
-    const allErrors = { ...generalErrors, ...levelErrors, ...finalErrors };
+  const submitAudition = async (skipValidation = false) => {
+    if (submitting || submitted) return;
 
-    if (Object.keys(allErrors).length > 0) {
-      setErrors(allErrors);
-      setShowErrorSummary(true);
-      const firstErrorStep =
-        Object.keys(generalErrors).length > 0 ? 0 : Object.keys(levelErrors).length > 0 ? 1 : 2;
-      setStep(firstErrorStep);
-      const firstErrorId = Object.keys(allErrors)[0];
-      window.setTimeout(() => focusFirstError(firstErrorId), 150);
-      return;
+    // On ne valide que l'étape courante : les étapes précédentes sont
+    // définitivement verrouillées et ne doivent jamais être rouvertes.
+    if (!skipValidation) {
+      const nextErrors = validateQuestions(stepQuestions);
+      if (Object.keys(nextErrors).length > 0) {
+        setErrors(nextErrors);
+        setShowErrorSummary(true);
+        focusFirstError(Object.keys(nextErrors)[0]);
+        return;
+      }
     }
+
+    setShowErrorSummary(false);
+    setErrors({});
 
     if (!level || !track) {
       setSubmitError('Sélectionne ton niveau et ta filière avant de continuer.');
-      setStep(0);
       return;
     }
 
@@ -401,6 +444,12 @@ export const AuditionForm: React.FC = () => {
       setSubmitting(false);
     }
   };
+
+  // Garde la référence à jour pour que la pendule puisse déclencher l'envoi
+  // automatique avec les dernières réponses saisies.
+  useEffect(() => {
+    submitAuditionRef.current = submitAudition;
+  });
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -562,6 +611,78 @@ export const AuditionForm: React.FC = () => {
               <p className="mt-1 text-xs leading-relaxed text-slate-500 sm:text-sm">
                 {stepDescription}
               </p>
+
+              {step > 0 && (
+                <div
+                  className={`mt-4 rounded-2xl border p-3.5 transition-colors ${
+                    timerCritical
+                      ? 'border-red-200 bg-red-50/70'
+                      : timerWarning
+                        ? 'border-amber-200 bg-amber-50/70'
+                        : 'border-slate-200 bg-slate-50'
+                  }`}
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+                    <div className="flex min-w-0 items-center gap-2.5">
+                      <span
+                        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ${
+                          timerCritical
+                            ? 'bg-red-100 text-red-600'
+                            : timerWarning
+                              ? 'bg-amber-100 text-amber-600'
+                              : 'bg-indigo-100 text-[#261c72]'
+                        }`}
+                      >
+                        <Clock className={`h-4 w-4 ${timerCritical ? 'animate-pulse' : ''}`} />
+                      </span>
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                          Temps restant
+                        </p>
+                        <p className="text-[11px] leading-snug text-slate-500">
+                          {step < 2
+                            ? "Passage automatique à l'étape suivante à 00:00 · retour impossible."
+                            : 'Envoi automatique de ta candidature à 00:00.'}
+                        </p>
+                      </div>
+                    </div>
+
+                    <span
+                      role="timer"
+                      aria-live="off"
+                      className={`font-mono text-2xl font-bold tabular-nums tracking-tight ${
+                        timerCritical
+                          ? 'text-red-600'
+                          : timerWarning
+                            ? 'text-amber-600'
+                            : 'text-[#261c72]'
+                      }`}
+                    >
+                      {formatCountdown(timeLeft)}
+                    </span>
+                  </div>
+
+                  <div
+                    className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-slate-200"
+                    role="progressbar"
+                    aria-label="Temps restant"
+                    aria-valuemin={0}
+                    aria-valuemax={TIMED_STEP_DURATION_SECONDS}
+                    aria-valuenow={timeLeft}
+                  >
+                    <div
+                      className={`h-full rounded-full transition-[width] duration-1000 ease-linear ${
+                        timerCritical
+                          ? 'bg-red-500'
+                          : timerWarning
+                            ? 'bg-[#ff7f00]'
+                            : 'bg-[#261c72]'
+                      }`}
+                      style={{ width: `${(timeLeft / TIMED_STEP_DURATION_SECONDS) * 100}%` }}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -633,19 +754,11 @@ export const AuditionForm: React.FC = () => {
           )}
 
           <div className="mt-8 flex flex-col-reverse gap-3 border-t border-slate-100 pt-5 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              {step > 0 && (
-                <button
-                  type="button"
-                  onClick={goToPreviousStep}
-                  disabled={submitting}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  Précédent
-                </button>
-              )}
-            </div>
+            <p className="text-center text-[11px] leading-relaxed text-slate-400 sm:text-left">
+              {step > 0
+                ? "Le retour à l'étape précédente est désactivé."
+                : "Dès l'étape 2, chaque page est chronométrée à 1 min 30."}
+            </p>
 
             <button
               type="submit"

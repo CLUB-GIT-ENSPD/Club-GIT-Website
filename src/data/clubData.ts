@@ -682,5 +682,5 @@ export const GALLERY_DATA: GalleryItem[] = [
 export const AUDITION_FORM = {
   questionsCount: 24,
   levelQuestionsCount: 15,
-  durationLabel: "15 à 20 minutes",
+  durationLabel: "1 min 30 par page chronométrée",
 } as const;
